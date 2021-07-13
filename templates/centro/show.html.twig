@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Centro{% endblock %}
+
+{% block body %}
+    <h1>Centro</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ centro.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ centro.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ centro.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Matricula</th>
+                <td>{{ centro.matricula }}</td>
+            </tr>
+            <tr>
+                <th>Tipo</th>
+                <td>{{ centro.tipo }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ centro.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Correo</th>
+                <td>{{ centro.correo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('centro_index') }}">Volver a lista anterior</a>
+
+    <a href="{{ path('centro_edit', {'id': centro.id}) }}">Editar</a>
+
+    {{ include('centro/_delete_form.html.twig') }}
+{% endblock %}

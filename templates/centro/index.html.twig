@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Centro index{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <h1>Centro index</h1>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nro</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Matricula</th>
+                <th>Tipo</th>
+                <th>Telefono</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        {#
+        <tbody>
+        {% for centro in centros %}
+            <tr>
+                <td>{{ centro.id }}</td>
+                <td>{{ centro.nombre }}</td>
+                <td>{{ centro.direccion }}</td>
+                <td>{{ centro.matricula }}</td>
+                <td>{{ centro.tipo }}</td>
+                <td>{{ centro.telefono }}</td>
+                <td>{{ centro.correo }}</td>
+                <td>
+                    <a href="{{ path('centro_show', {'id': centro.id}) }}">Ver</a>
+                    <a href="{{ path('centro_edit', {'id': centro.id}) }}">
+                        <i class="bi bi-pencil-square"></i> {# bootstrap
+                        <i class="fas fa-pen-square"></i> {# font awesone
+                        Editar
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">No se encontraron registros</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+        #}
+    </table>
+
+
+
+
+
+    {# total items count #}
+    <div class="count">
+        {{ pagination.getTotalItemCount }}
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                {# sorting of properties based on query components #}
+                <th>{{ knp_pagination_sortable(pagination, 'Nro', 'a.id') }}</th>
+                {#
+                <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(pagination, 'Nombre', 'a.title') }}
+                </th>
+                <th{% if pagination.isSorted(['a.date', 'a.time']) %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(pagination, 'Dirección', ['a.date', 'a.time']) }}
+                </th>
+                #}
+                <th>{{ knp_pagination_sortable(pagination, 'Nombre', 'a.nombre') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Dirección', 'a.direccion') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Matricula', 'a.matricula') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Tipo', 'a.tipo') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Teléfono', 'a.telefono') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Correo', 'a.correo') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Acciones', 'a.id') }}</th>
+            </tr>
+        </thead>
+
+        <a href="{{ path('centro_new') }}">Crear nuevo</a>
+
+        {# table body #}
+        {% for article in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ article.id }}</td>
+                <td>{{ article.nombre }}</td>
+                <td>{{ article.direccion }}</td>
+                <td>{{ article.matricula }}</td>
+                <td>{{ article.tipo }}</td>
+                <td>{{ article.telefono }}</td>
+                <td>{{ article.correo }}</td>
+                <td>
+                    <a href="{{ path('centro_show', {'id': article.id}) }}">Ver</a>
+                    <a href="{{ path('centro_edit', {'id': article.id}) }}">
+                        <i class="bi bi-pencil-square"></i> {# bootstrap #}
+                        <i class="fas fa-pen-square"></i> {# font awesone #}
+                        Editar
+                    </a>
+
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+{% endblock %}

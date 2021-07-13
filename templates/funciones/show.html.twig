@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Funciones{% endblock %}
+
+{% block body %}
+    <h2>Función</h2>
+    <div class="container">
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ funcione.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ funcione.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <td>{{ funcione.descripcion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-info" href="{{ path('funciones_index') }}">
+        <i class="bi bi-arrow-return-left "></i>
+        Volver
+    </a>
+
+    <a class="btn btn-warning" href="{{ path('editar_funcion', {'id': funcione.id}) }}">
+        <i class="bi bi-pencil-square"></i>
+        Editar
+    </a>
+
+    {{ include('funciones/_delete_form.html.twig') }}
+
+    </div>
+
+{% endblock %}

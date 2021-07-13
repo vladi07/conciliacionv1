@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registro de Persona{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+    <h1>{{ controller_name }}! ✅</h1>
+    <!-- Insertamos en la vista los mensajes de alerta -->
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <h3> Ingrese los datos del Solicitante </h3>
+    {{ form(formulario) }}
+
+</div>
+{% endblock %}

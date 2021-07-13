@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Funciones{% endblock %}
+
+{% block body %}
+    <h1>Lista de Funciones</h1>
+    <a class="btn btn-success" href="{{ path('nueva_funcion') }}">
+        <i class="bi bi-file-earmark-plus"></i>
+        Crear Nuevo
+    </a>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nro</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for funcione in funciones %}
+            <tr>
+                <td>{{ funcione.id }}</td>
+                <td>{{ funcione.nombre }}</td>
+                <td>{{ funcione.descripcion }}</td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('ver_funcion', {'id': funcione.id}) }}">
+                        <i class="bi bi-eye-fill"></i>
+                        Ver
+                    </a>
+                    <a class="btn btn-warning" href="{{ path('editar_funcion', {'id': funcione.id}) }}">
+                        <i class="bi bi-pencil-square"></i>
+                        Editar
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No se encontraron registros</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

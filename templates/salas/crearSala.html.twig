@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Salas{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="example-wrapper">
+        <h1> {{ controller_name }}</h1>
+        {# Mostramos en pantalla el mesaje de obtenemos del Controlador #}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {# Llamamos al formulario en Twig #}
+        {{ form(formularioSalas) }}
+
+    </div>
+{% endblock %}

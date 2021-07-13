@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuevo Centro{% endblock %}
+
+{% block body %}
+    <h1>Crear Nuevo Centro</h1>
+
+    {{ include('centro/_form.html.twig') }}
+
+    <a href="{{ path('centro_index') }}">Volver a lista anterior</a>
+{% endblock %}

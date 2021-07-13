@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SolicitudConciliacion{% endblock %}
+
+{% block body %}
+    <h1>SolicitudConciliacion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ solicitud_conciliacion.id }}</td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <td>{{ solicitud_conciliacion.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Materia</th>
+                <td>{{ solicitud_conciliacion.materia }}</td>
+            </tr>
+            <tr>
+                <th>Tipo de Conciliación</th>
+                <td>{{ solicitud_conciliacion.tipoConciliacion }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de Solicitud</th>
+                <td>{{ solicitud_conciliacion.fecha ? solicitud_conciliacion.fecha|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('solicitud_index') }}">back to list</a>
+
+    <a href="{{ path('solicitud_edit', {'id': solicitud_conciliacion.id}) }}">edit</a>
+
+    {{ include('solicitud/_delete_form.html.twig') }}
+{% endblock %}

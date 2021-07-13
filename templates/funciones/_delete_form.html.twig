@@ -1,0 +1,9 @@
+<form method="post"
+      action="{{ path('eliminar_funcion', {'id': funcione.id}) }}"
+      onsubmit="return confirm('¿Estas segur@ de eliminar esta función?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ funcione.id) }}">
+    <button class="btn btn-danger">
+        <i class="fas fa-trash-alt"></i>
+        Eliminar
+    </button>
+</form>

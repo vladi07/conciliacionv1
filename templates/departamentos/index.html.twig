@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}-Departamentos
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <h1>Departamentos index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nro</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for departamento in departamentos %}
+            <tr>
+                <td>{{ departamento.id }}</td>
+                <td>{{ departamento.nombre }}</td>
+                <td>
+                    <a href="{{ path('departamentos_show', {'id': departamento.id}) }}">
+                        <i class="bi bi-eye-fill"></i>Ver
+                    </a>
+                    <a href="{{ path('departamentos_edit', {'id': departamento.id}) }}">
+                        <i class="bi bi-pencil-square"></i>Editar
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No se encontraron registros</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('departamentos_new') }}">
+        <i class="bi bi-plus-square-fill"></i>Nuevo Departamento
+    </a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nueva Solicitud{% endblock %}
+
+{% block body %}
+    <h1>Crear Nueva Solicitud de Conciliación</h1>
+
+    {{ include('solicitud/_form.html.twig') }}
+
+    <a href="{{ path('solicitud_index') }}">Volver a lista</a>
+{% endblock %}

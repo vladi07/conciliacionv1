@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver Salas{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <h1> {{ controller_name }}</h1>
+    {{ dump(verSalas) }}
+    {{ dump(verUnaSala) }}
+    {{ dump(verPoNombre) }}
+    {{ dump(verVariosNombre) }}
+{% endblock %}

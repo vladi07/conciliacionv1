@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}-Principal
+{% endblock %}
+
+{% block body %}
+
+    {#
+    <h1>Ventana Principal</h1>
+    Numero total de los items
+    <div class="count">
+        <h3>Cantidad total de registros</h3> {{ pagination.getTotalItemCount }}
+    </div>
+    #}
+    {#
+    <table>
+        <tr>
+            sorting of properties based on query components
+            <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+            <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}
+            </th>
+            <th{% if pagination.isSorted(['a.date', 'a.time']) %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'Release', ['a.date', 'a.time']) }}
+            </th>
+        </tr>
+
+         table body
+        {% for article in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ article.id }}</td>
+                <td>{{ article.nombres }}</td>
+                <td>{{ article.primerApellido }}</td>
+                <td>{{ article.numeroDocumento }}</td>
+                <td>{{ article.fechaNacimiento | date('d-m-Y') }}</td>
+                <td>{{ article.foto }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    # display navigation #
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+    #}
+
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <!--Mod Conciliacion de Casos-->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+                <div class="inner align-text-center">
+                    <h1>Modulo de Conciliacion de Casos</h1>
+                </div>
+                <div class="icon">
+                    <i class="ion bi-inboxes-fill"></i>
+                </div>
+                <a href="#" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!--Mod Agenda de Conciliaciones-->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h1>Modulo de Agenda de Conciliaciones</h1>
+                </div>
+                <div class="icon">
+                    <i class="ion bi-calendar3"></i>
+                </div>
+                <a href="#" class="small-box-footer">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- Mod Reportes estadisticos -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h1>Modulo de Reportes Estadisticos</h1>
+                </div>
+                <div class="icon">
+                    <i class="ion bi bi-bar-chart-line-fill"></i>
+                </div>
+                <a href="#" class="small-box-footer">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!--Mod Gestion de Usuarios-->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h1>Modulo de Gestión de Usuarios</h1>
+                </div>
+                <div class="icon">
+                    <i class="ion bi bi-person-check-fill"></i>
+                </div>
+                <a href="#" class="small-box-footer">Ingresar<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+    <!-- /.row -->
+
+{% endblock %}

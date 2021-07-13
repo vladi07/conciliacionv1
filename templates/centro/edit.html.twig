@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Centro{% endblock %}
+
+{% block body %}
+    <h1>Editar Centro</h1>
+
+    {{ include('centro/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('centro_index') }}">Volver a lista anterior</a>
+
+    {{ include('centro/_delete_form.html.twig') }}
+{% endblock %}
