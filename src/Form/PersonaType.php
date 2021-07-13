@@ -68,7 +68,6 @@ class PersonaType extends AbstractType
                 'choice_label' => 'nombre',
                 'multiple' => false,
                 'expanded' => false,
-
             ])
             ->add('foto', FileType::class, [
                 'label' => 'Foto de Perfil',

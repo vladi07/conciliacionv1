@@ -3,7 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Centro;
+use App\Entity\Departamentos;
+use phpDocumentor\Reflection\Type;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,10 +19,22 @@ class CentroType extends AbstractType
             ->add('nombre')
             ->add('direccion')
             ->add('matricula')
-            ->add('tipo')
+            ->add('tipo', ChoiceType::class,[
+                'placeholder' => 'Seleccione una opción',
+                'choices' => [
+                    'Privado' => 'PRIVADO',
+                    'Publico' => 'PUBLICO',
+                ]
+            ])
             ->add('telefono')
             ->add('correo')
-            ->add('departamento')
+            ->add('departamento', EntityType::class,[
+                'placeholder' => 'Seleccione una opción',
+                'class' => Departamentos::class,
+                'choice_label' => 'nombre',
+                'multiple' => false,
+                'expanded' => false,
+            ])
         ;
     }
 

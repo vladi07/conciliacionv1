@@ -16,6 +16,7 @@
                 <th>Tipo</th>
                 <th>Telefono</th>
                 <th>Correo</th>
+                <th>Departamento</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -78,6 +79,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'Tipo', 'a.tipo') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'Teléfono', 'a.telefono') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'Correo', 'a.correo') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Departamento', 'a.departamento') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'Acciones', 'a.id') }}</th>
             </tr>
         </thead>
@@ -94,6 +96,7 @@
                 <td>{{ article.tipo }}</td>
                 <td>{{ article.telefono }}</td>
                 <td>{{ article.correo }}</td>
+                <td>{{ article.departamento }}</td>
                 <td>
                     <a href="{{ path('centro_show', {'id': article.id}) }}">Ver</a>
                     <a href="{{ path('centro_edit', {'id': article.id}) }}">

@@ -24,7 +24,7 @@ class CentroRepository extends ServiceEntityRepository
         return $this -> getEntityManager()
             ->createQuery('
                 SELECT centro.id, centro.nombre, centro.direccion, centro.matricula, 
-                       centro.tipo, centro.telefono, centro.correo
+                       centro.tipo, centro.telefono, centro.correo, centro.
                 FROM App:Centro centro   
             ') ;
     }
