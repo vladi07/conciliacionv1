@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use App\Repository\CentroRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Collection;
+/** use Symfony\Component\Validator\Constraints\Collection; */
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=CentroRepository::class)
@@ -62,9 +64,9 @@ class Centro
     private $casoConciliatorio;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Salas", mappedBy="centro")
+     * @ORM\OneToMany(targetEntity="App\Entity\Salas", mappedBy="centro", cascade={"persist"})
      */
-    private $sala;
+    protected $salas;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Actividad", mappedBy="centro")
@@ -81,6 +83,18 @@ class Centro
      */
     public function __construct()
     {
+        $this -> salas = new ArrayCollection();
+    }
+
+    public function addSala(Salas $salas):void
+    {
+        $salas -> setCentro($this);
+        $this -> salas -> add($salas);
+    }
+
+    public function removeSala(Salas $salas):void
+    {
+        $this->salas->removeElement($salas);
     }
 
     public function getId(): ?int
@@ -195,18 +209,11 @@ class Centro
     /**
      * @return mixed
      */
-    public function getSala()
+    public function getSalas(): Collection
     {
-        return $this->sala;
+        return $this->salas;
     }
 
-    /**
-     * @param mixed $sala
-     */
-    public function setSala($sala): void
-    {
-        $this->sala = $sala;
-    }
 
     /**
      * @return mixed

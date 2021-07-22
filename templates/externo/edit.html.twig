@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit UsuarioExterno{% endblock %}
+
+{% block body %}
+    <h1>Edit UsuarioExterno</h1>
+
+    {{ include('externo/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('externo_index') }}">back to list</a>
+
+    {{ include('externo/_delete_form.html.twig') }}
+{% endblock %}

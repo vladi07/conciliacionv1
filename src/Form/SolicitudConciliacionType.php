@@ -16,7 +16,7 @@ class SolicitudConciliacionType extends AbstractType
             ->add('materia')
             ->add('tipoConciliacion')
             ->add('fecha')
-            ->add('solicitante')
+            //->add('solicitante')
             ->add('casoConciliatorio')
             //->add('usuario')
         ;

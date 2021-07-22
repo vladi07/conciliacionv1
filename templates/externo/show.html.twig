@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UsuarioExterno{% endblock %}
+
+{% block body %}
+    <h1>UsuarioExterno</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ usuario_externo.id }}</td>
+            </tr>
+            <tr>
+                <th>TipoUsuario</th>
+                <td>{{ usuario_externo.tipoUsuario }}</td>
+            </tr>
+            <tr>
+                <th>TipoDocumento</th>
+                <td>{{ usuario_externo.tipoDocumento }}</td>
+            </tr>
+            <tr>
+                <th>OrdenJudicial</th>
+                <td>{{ usuario_externo.ordenJudicial }}</td>
+            </tr>
+            <tr>
+                <th>AutoridadEmite</th>
+                <td>{{ usuario_externo.autoridadEmite }}</td>
+            </tr>
+            <tr>
+                <th>FechaEmision</th>
+                <td>{{ usuario_externo.fechaEmision ? usuario_externo.fechaEmision|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>CreadoPor</th>
+                <td>{{ usuario_externo.creadoPor }}</td>
+            </tr>
+            <tr>
+                <th>FechaCreacion</th>
+                <td>{{ usuario_externo.fechaCreacion ? usuario_externo.fechaCreacion|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('externo_index') }}">back to list</a>
+
+    <a href="{{ path('externo_edit', {'id': usuario_externo.id}) }}">edit</a>
+
+    {{ include('externo/_delete_form.html.twig') }}
+{% endblock %}

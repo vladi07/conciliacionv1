@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UsuarioExterno index{% endblock %}
+
+{% block body %}
+    <h1>UsuarioExterno index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TipoUsuario</th>
+                <th>TipoDocumento</th>
+                <th>OrdenJudicial</th>
+                <th>AutoridadEmite</th>
+                <th>FechaEmision</th>
+                <th>CreadoPor</th>
+                <th>FechaCreacion</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for usuario_externo in usuario_externos %}
+            <tr>
+                <td>{{ usuario_externo.id }}</td>
+                <td>{{ usuario_externo.tipoUsuario }}</td>
+                <td>{{ usuario_externo.tipoDocumento }}</td>
+                <td>{{ usuario_externo.ordenJudicial }}</td>
+                <td>{{ usuario_externo.autoridadEmite }}</td>
+                <td>{{ usuario_externo.fechaEmision ? usuario_externo.fechaEmision|date('Y-m-d') : '' }}</td>
+                <td>{{ usuario_externo.creadoPor }}</td>
+                <td>{{ usuario_externo.fechaCreacion ? usuario_externo.fechaCreacion|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('externo_show', {'id': usuario_externo.id}) }}">show</a>
+                    <a href="{{ path('externo_edit', {'id': usuario_externo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('externo_new') }}">Create new</a>
+{% endblock %}

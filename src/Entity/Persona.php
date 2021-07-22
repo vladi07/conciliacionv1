@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PersonaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -315,5 +317,9 @@ class Persona
     public function setUsuarioExterno($usuarioExterno): void
     {
         $this->usuarioExterno = $usuarioExterno;
+    }
+    public function __toString()
+    {
+        return $this->nombres;
     }
 }

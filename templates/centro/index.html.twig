@@ -1,11 +1,119 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Centro index{% endblock %}
+{% block title %}
+    {{ parent() }}|Centros
+{% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <h1>Centro index</h1>
 
+    <div class="container-fluid">
+        <h1>Lista de Centros</h1>
+
+        {# Nro total de items #}
+        <div class="card count" style="width: 18rem;">
+            <div class="card-body btn-info">
+                <h5 class="card-title">Cantidad Total de Centros: </h5>
+                {{ pagination.getTotalItemCount }}
+            </div>
+        </div>
+        {# Boton Crear nuevo centro #}
+        <div>
+            <a class="btn btn-success" href="{{ path('centro_new') }}">
+                <i class="bi bi-plus-square"></i>
+                Crear nuevo
+            </a>
+        </div>
+        {# Tabla de los centros registrados #}
+        <div class="table table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nro</th>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Matricula</th>
+                        <th>Tipo</th>
+                        <th>Telefono</th>
+                        <th>Correo</th>
+                        <th>Departamento</th>
+                        <th>Acciones</th>
+                        {# sorting of properties based on query components
+                        <th>{{ knp_pagination_sortable(pagination, 'Nro', 'a.id') }}</th>
+                        <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Nombre', 'a.title') }}
+                        </th>
+                        <th{% if pagination.isSorted(['a.date', 'a.time']) %} class="sorted"{% endif %}>
+                            {{ knp_pagination_sortable(pagination, 'Dirección', ['a.date', 'a.time']) }}
+                        </th>
+                        <th scope="col">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.nombre') }}</th>
+
+                        <th>{{ knp_pagination_sortable(pagination, 'Dirección', 'a.direccion') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Matricula', 'a.matricula') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Tipo', 'a.tipo') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Teléfono', 'a.telefono') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Correo', 'a.correo') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Departamento', 'a.departamento') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Acciones', 'a.id') }}</th>
+                        #}
+                    </tr>
+                </thead>
+
+                {# table body #}
+                {% for article in pagination %}
+                    <tr {% if loop.index is odd %}class="color"{% endif %}>
+                        <td>{{ article.id }}</td>
+                        <td>{{ article.nombre }}</td>
+                        <td>{{ article.direccion }}</td>
+                        <td>{{ article.matricula }}</td>
+                        <td>{{ article.tipo }}</td>
+                        <td>{{ article.telefono }}</td>
+                        <td>{{ article.correo }}</td>
+                        <td>{{ article.nombreDepartamento }}</td>
+                        {# <td>{{ article.sala }}</td> #}
+
+                        <td>
+                            <a class="btn btn-success" href="{{ path('centro_show', {'id': article.id}) }}">
+                                <i class="bi bi-eye-fill"></i>
+                                Ver
+                            </a>
+                            {%  if is_granted('ROLE_RERERE') %}
+                                <a class="btn btn-info" href="{{ path('centro_edit', {'id': article.id}) }}">
+                                    <i class="bi bi-pencil-square"></i> {# bootstrap #}
+                                    Editar
+                                </a>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {# Navegacion de Pantalla #}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+
+
+
+
+    {#
+    {{ form_row(form.sala) }}
+
+    {{ form_label(form.sala) }}
+    {{ form_errors(form.sala) }}
+
+    <ul>
+        {% for salaField in form.sala %}
+            <li>
+                {{ form_errors(salaField) }}
+                {{ form_widget(salalField) }}
+            </li>
+        {% endfor %}
+    </ul>
+    #}
+
+    {#
     <table class="table table-hover">
         <thead>
             <tr>
@@ -21,7 +129,7 @@
             </tr>
         </thead>
 
-        {#
+
         <tbody>
         {% for centro in centros %}
             <tr>
@@ -48,71 +156,8 @@
         {% endfor %}
 
         </tbody>
-        #}
+
     </table>
-
-
-
-
-
-    {# total items count #}
-    <div class="count">
-        {{ pagination.getTotalItemCount }}
-    </div>
-
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                {# sorting of properties based on query components #}
-                <th>{{ knp_pagination_sortable(pagination, 'Nro', 'a.id') }}</th>
-                {#
-                <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>
-                    {{ knp_pagination_sortable(pagination, 'Nombre', 'a.title') }}
-                </th>
-                <th{% if pagination.isSorted(['a.date', 'a.time']) %} class="sorted"{% endif %}>
-                    {{ knp_pagination_sortable(pagination, 'Dirección', ['a.date', 'a.time']) }}
-                </th>
-                #}
-                <th>{{ knp_pagination_sortable(pagination, 'Nombre', 'a.nombre') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Dirección', 'a.direccion') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Matricula', 'a.matricula') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Tipo', 'a.tipo') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Teléfono', 'a.telefono') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Correo', 'a.correo') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Departamento', 'a.departamento') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Acciones', 'a.id') }}</th>
-            </tr>
-        </thead>
-
-        <a href="{{ path('centro_new') }}">Crear nuevo</a>
-
-        {# table body #}
-        {% for article in pagination %}
-            <tr {% if loop.index is odd %}class="color"{% endif %}>
-                <td>{{ article.id }}</td>
-                <td>{{ article.nombre }}</td>
-                <td>{{ article.direccion }}</td>
-                <td>{{ article.matricula }}</td>
-                <td>{{ article.tipo }}</td>
-                <td>{{ article.telefono }}</td>
-                <td>{{ article.correo }}</td>
-                <td>{{ article.departamento }}</td>
-                <td>
-                    <a href="{{ path('centro_show', {'id': article.id}) }}">Ver</a>
-                    <a href="{{ path('centro_edit', {'id': article.id}) }}">
-                        <i class="bi bi-pencil-square"></i> {# bootstrap #}
-                        <i class="fas fa-pen-square"></i> {# font awesone #}
-                        Editar
-                    </a>
-
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-
-    {# display navigation #}
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
-    </div>
-
+    #}
 {% endblock %}
+

@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=SalasRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Salas
 {
@@ -27,9 +28,14 @@ class Salas
     private $nombre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Centro", inversedBy="sala")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Centro", inversedBy="salas")
      */
     private $centro;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $fechaCreacion;
 
     /**
      * @return mixed
@@ -78,10 +84,33 @@ class Salas
         return $this->nombre;
     }
 
-    public function setNombre(?string $nombre): self
+    public function setNombre(?string $nombre): void
     {
         $this->nombre = $nombre;
-        return $this;
+        //* return $this;*/
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFechaCreacion()
+    {
+        return $this->fechaCreacion;
+    }
+
+    /**
+     * @param mixed $fechaCreacion
+     */
+    public function setFechaCreacion($fechaCreacion): void
+    {
+        $this->fechaCreacion = $fechaCreacion;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist(){
+        $this->fechaCreacion=new \DateTime();
     }
 
 

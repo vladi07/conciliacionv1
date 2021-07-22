@@ -1,11 +1,89 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nuevo Centro{% endblock %}
+{% block title %}|Nuevo Centro{% endblock %}
 
 {% block body %}
-    <h1>Crear Nuevo Centro</h1>
+    <div class="">
+        <div class="">
+            <h1>Crear Nuevo Centro</h1>
+        </div>
+    </div>
 
-    {{ include('centro/_form.html.twig') }}
+    <div class="container-fluid">
+        <div class="table table-sm">
+            {{ include('centro/_form.html.twig') }}
+            <a class="btn btn-primary" href="{{ path('centro_index') }}">
+                <i class="bi bi-arrow-return-left"></i>
+                Volver a lista anterior
+            </a>
+        </div>
+    </div>
+{% endblock %}
 
-    <a href="{{ path('centro_index') }}">Volver a lista anterior</a>
+{% block javascripts %}
+    <script>
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of tags
+            var $salasCollectionHolder = $('ul.sala');
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $salasCollectionHolder.data('index', $salasCollectionHolder.find('input').length);
+
+            $('body').on('click', '.add_item_link', function(e) {
+                var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+                // add a new tag form (see next code block)
+                addFormToCollection($collectionHolderClass);
+            })
+            // Get the ul that holds the collection of tags
+            $collectionHolder = $('ul.sala');
+
+            // add a delete link to all of the existing tag form li elements
+            $collectionHolder.find('li').each(function() {
+                addTagFormDeleteLink($(this));
+            });
+
+        });
+        function addFormToCollection($collectionHolderClass) {
+            // Get the ul that holds the collection of tags
+            var $collectionHolder = $('.' + $collectionHolderClass);
+
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            // You need this only if you didn't set 'label' => false in your tags field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            // newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormLi = $('<li></li>').append(newForm);
+            // Add the new form at the end of the list
+            $collectionHolder.append($newFormLi)
+
+            // add a delete link to the new form
+            addSalaFormDeleteLink($newFormLi);
+        }
+
+        function addTagFormDeleteLink($tagFormLi) {
+            var $removeFormButton = $('<button type="button">Eliminar esta Sala</button>');
+            $salaFormLi.append($removeFormButton);
+
+            $removeFormButton.on('click', function(e) {
+                // remove the li for the tag form
+                $salaFormLi.remove();
+            });
+        }
+
+    </script>
 {% endblock %}

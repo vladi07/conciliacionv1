@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 
 /**
  * @method Usuarios|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method Usuarios[]    findAll()
  * @method Usuarios[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UsuariosRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class UsuariosRepository extends ServiceEntityRepository implements UserLoaderInterface, PasswordUpgraderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -64,4 +65,19 @@ class UsuariosRepository extends ServiceEntityRepository implements PasswordUpgr
         ;
     }
     */
+
+    public function loadUserByUsername($usernameOrEmail): ?Usuarios
+    {
+        $entityManager = $this->getEntityManager();
+
+        return $entityManager->createQuery(
+            'SELECT u
+                FROM App\Entity\Usuarios u
+                WHERE u.username = :query
+                OR u.email = :query
+            '
+        )
+            ->setParameter('query', $usernameOrEmail)
+            ->getOneOrNullResult();
+    }
 }

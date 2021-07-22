@@ -3,8 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Centro;
+use App\Entity\Salas;
 use App\Form\CentroType;
+use App\Form\SalasType;
 use App\Repository\CentroRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,12 +46,21 @@ class CentroController extends AbstractController
     public function new(Request $request): Response
     {
         $centro = new Centro();
+
+        //$sala1 = new Salas();
+        //$sala1 -> setNombre('sala1');
+        //$centro -> getSala() -> add($sala1);
+        //$sala2 = new Salas();
+        //$sala2 -> setNombre('sala2');
+        //$centro -> getSala() -> add($sala2);
+
         $form = $this->createForm(CentroType::class, $centro);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($centro);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('centro_index');
@@ -59,20 +73,59 @@ class CentroController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="centro_show", methods={"GET"})
+     * @Route("/{id}", name="centro_show")
      */
-    public function show(Centro $centro): Response
+    public function show(Centro $centro,Request $request): Response
     {
+        $form=$this->createForm(SalasType::class,null);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            /** @var Salas $sala */
+            $sala =$form->getData();
+            $sala->setCentro($centro);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($sala);
+            $entityManager->flush();
+        }
         return $this->render('centro/show.html.twig', [
             'centro' => $centro,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="centro_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Centro $centro): Response
+    public function edit($id, Request $request, EntityManagerInterface $entityManager, Centro $centro): Response
     {
+        if (null == $centro = $entityManager->getRepository(Centro::class)->find($id)){
+            throw $this -> createNotFoundException('No se encontro sala con el ID'.$id);
+        }
+
+        $originalSalas = new ArrayCollection();
+
+        foreach ($centro -> getSala() as $sala){
+            $originalSalas -> add($sala);
+        }
+
+        $editForm = $this -> createForm(CentroType::class, $centro);
+
+        $editForm -> handleRequest($request);
+
+        if ($editForm -> isSubmitted() && $editForm -> isValid()){
+            foreach ($originalSalas as $sala){
+                if (false === $centro -> getSala()-> contains($sala)){
+                    $sala -> getCentro() -> removeElement($centro);
+                    $entityManager -> persist($sala);
+                }
+            }
+
+            $entityManager->persist($centro);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('centro_edit', ['id'=>$id]);
+        }
+
         $form = $this->createForm(CentroType::class, $centro);
         $form->handleRequest($request);
 

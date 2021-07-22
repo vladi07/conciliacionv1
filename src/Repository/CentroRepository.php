@@ -21,12 +21,24 @@ class CentroRepository extends ServiceEntityRepository
     }
 
     public function BuscarTodosCentros(){
-        return $this -> getEntityManager()
+       /* return $this -> getEntityManager()
             ->createQuery('
                 SELECT centro.id, centro.nombre, centro.direccion, centro.matricula, 
-                       centro.tipo, centro.telefono, centro.correo, centro.
+                       centro.tipo, centro.telefono, centro.correo
                 FROM App:Centro centro   
-            ') ;
+            ') ; */
+        return $this->createQueryBuilder('c')
+            ->select('c.id')
+            ->addSelect('c.nombre')
+            ->addSelect('c.direccion')
+            ->addSelect('c.matricula')
+            ->addSelect('c.tipo')
+            ->addSelect('c.telefono')
+            ->addSelect('c.correo')
+            ->addSelect('d.nombre AS nombreDepartamento')
+            ->leftJoin('c.departamento','d')
+            ->orderBy('c.id','DESC')
+            ->getQuery();
     }
 
     // /**

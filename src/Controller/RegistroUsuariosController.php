@@ -13,11 +13,22 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistroUsuariosController extends AbstractController
 {
+    private $permisos=[
+        1=>[
+            'ROLE_ASDASd',
+            'ROLE_ASDASDAsd',
+            'ROLE_123123'
+        ],
+        2=>['ROLE_USUUAUAUA'],
+        3=>[]
+    ];
     /**
      * @Route("/registro_usuarios", name="Registrar_Usuarios")
+     *
      */
     public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_123123");
         $usuario = new Usuarios();
         $form = $this -> createForm(UsuariosType::class, $usuario);
         $form -> handleRequest($request);
@@ -30,6 +41,8 @@ class RegistroUsuariosController extends AbstractController
             $usuario -> setPassword($passwordEncoder -> encodePassword(
                 $usuario, $form['password'] -> getData()
             ));
+            $rolAsignado=$form['rolAsignado']->getData();
+            $usuario->setRoles($this->permisos[$rolAsignado]);
 
             // Creamos el Usuario Creador
             //$usuarioCreador = $this->getUser();

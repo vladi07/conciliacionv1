@@ -236,5 +236,10 @@ class UsuarioExterno
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->persona;
+    }
+
 
 }
