@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Centro{% endblock %}
+{% block title %}
+    {{ parent() }}|Editar centro
+{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
         <h1>Editar Centro</h1>
-        {{ include('centro/_form.html.twig', {'button_label': 'Actualizar'}) }}
+        {{ include('centro/_form.html.twig', {'button_label': 'Guardar'}) }}
 
         <a class="btn btn-primary" href="{{ path('centro_index') }}">
             <i class="bi bi-arrow-return-left"></i>

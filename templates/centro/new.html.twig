@@ -3,25 +3,30 @@
 {% block title %}|Nuevo Centro{% endblock %}
 
 {% block body %}
-    <div class="">
-        <div class="">
-            <h1>Crear Nuevo Centro</h1>
+    <div class="container-fluid">
+        <div class="card" style="width: 40rem;">
+            <div class="card-title">
+                <h1>Añadir Centro</h1>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    {{ include('centro/_form.html.twig') }}
+                    <a class="btn btn-primary" href="{{ path('centro_index') }}">
+                        <i class="bi bi-arrow-return-left"></i>
+                        Volver
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="container-fluid">
-        <div class="table table-sm">
-            {{ include('centro/_form.html.twig') }}
-            <a class="btn btn-primary" href="{{ path('centro_index') }}">
-                <i class="bi bi-arrow-return-left"></i>
-                Volver a lista anterior
-            </a>
-        </div>
-    </div>
+
+
 {% endblock %}
 
 {% block javascripts %}
     <script>
+        {#
         jQuery(document).ready(function() {
             // Get the ul that holds the collection of tags
             var $salasCollectionHolder = $('ul.sala');
@@ -84,6 +89,8 @@
                 $salaFormLi.remove();
             });
         }
+        #}
+
 
     </script>
 {% endblock %}

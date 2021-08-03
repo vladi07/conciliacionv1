@@ -1,85 +1,120 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Centro{% endblock %}
+{% block title %}
+    {{ parent() }}|Centro|Show
+{% endblock %}
 
 {% block body %}
-    <h1>Centro</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-7">
+                <div class="card card-body">
+                    <h1>Datos del Centro</h1>
+                    <table class="table table-striped table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ centro.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nombre</th>
+                                <td>{{ centro.nombre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Dirección</th>
+                                <td>{{ centro.direccion }}</td>
+                            </tr>
+                            <tr>
+                                <th>Matricula</th>
+                                <td>{{ centro.matricula }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tipo</th>
+                                <td>{{ centro.tipo }}</td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono</th>
+                                <td>{{ centro.telefono }}</td>
+                            </tr>
+                            <tr>
+                                <th>Correo</th>
+                                <td>{{ centro.correo }}</td>
+                            </tr>
+                            <tr>
+                                <th>Departamento</th>
+                                <td>{{ centro.departamento.nombre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Actividad</th>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ centro.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ centro.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Direccion</th>
-                <td>{{ centro.direccion }}</td>
-            </tr>
-            <tr>
-                <th>Matricula</th>
-                <td>{{ centro.matricula }}</td>
-            </tr>
-            <tr>
-                <th>Tipo</th>
-                <td>{{ centro.tipo }}</td>
-            </tr>
-            <tr>
-                <th>Telefono</th>
-                <td>{{ centro.telefono }}</td>
-            </tr>
-            <tr>
-                <th>Correo</th>
-                <td>{{ centro.correo }}</td>
-            </tr>
-            <tr>
-                <th>Departamento</th>
-                <td>{{ centro.departamento.nombre }}</td>
-            </tr>
-        </tbody>
-    </table>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                    <button class="btn">
+                        <a class="btn btn-primary" href="{{ path('centro_index') }}">
+                            <i class="bi bi-arrow-return-left"></i>
+                            Volver
+                        </a>
+                        <a class="btn btn-success" href="{{ path('centro_edit', {'id': centro.id}) }}">
+                            <i class="bi bi-pencil-square"></i>
+                            Editar
+                        </a>
+                        <a class="btn">
+                            {{ include('centro/_delete_form.html.twig') }}
+                        </a>
 
-
-    <a class="btn btn-info" href="{{ path('centro_edit', {'id': centro.id}) }}">
-        <i class="bi bi-pencil-square"></i>
-        Editar
-    </a>
-
-    {{ include('centro/_delete_form.html.twig') }}
-
-    <div class="row">
-        <div class="col-6">
-            <table class="table">
-                <thead>
-                <th>Nombre</th>
-                <th>Fecha Creacion</th>
-                </thead>
-                <tbody>
-                {% for sala in centro.salas %}
-                    <tr>
-                        <td>{{ sala.nombre }}</td>
-                        <td>{{ sala.fechaCreacion|date("d/m/Y") }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="col-6">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button type="submit">Guardar nueva sala</button>
-            {{ form_end(form) }}
+                    </button>
+                    {#
+                    <div class="card-footer">
+                        Boton Editar
+                        <a href="">
+                        </a>
+                    </div>
+                    #}
+                </div>
+            </div>
+            {# Card para Añadir y Ver Salas #}
+            <div class="col-5">
+                <div class="card card-body">
+                    <h1>Añadir Salas</h1>
+                    <div class="card-title">
+                        {{ form_start(form) }}
+                            {# Renderizamos el formulario que esta en Show del Controller #}
+                            {{ form_widget(form) }}
+                            <button type="submit" class="btn btn-primary">
+                                Guardar nueva sala
+                            </button>
+                        {{ form_end(form) }}
+                    </div>
+                    {# Tabla para añadir ver Salas al Centro #}
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <th>Nombre</th>
+                                <th>Fecha Creación</th>
+                                <th>Acciones</th>
+                            </thead>
+                            <tbody>
+                                {% for sala in centro.sala %}
+                                    <tr>
+                                        <td>{{ sala.nombre }}</td>
+                                        <td>{{ sala.fechaCreacion|date("d/m/Y") }}</td>
+                                        <td>
+                                            <a class="btn btn-success" href="{{ path('salas',{'id':sala.id}) }}">
+                                                <i class="bi bi-pencil-square"></i> Editar
+                                            </a>
+                                            <a class="btn btn-danger" href="{{ path('Nueva_sala', {'id':sala.id}) }}">
+                                                <i class="bi bi-pencil-square"></i> Eliminar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <h1>Salas</h1>
-
-    <a class="btn btn-primary" href="{{ path('centro_index') }}">
-        <i class="bi bi-arrow-return-left"></i>
-        Volver a lista anterior
-    </a>
-
-
 {% endblock %}

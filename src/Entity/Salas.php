@@ -112,6 +112,4 @@ class Salas
     public function prePersist(){
         $this->fechaCreacion=new \DateTime();
     }
-
-
 }

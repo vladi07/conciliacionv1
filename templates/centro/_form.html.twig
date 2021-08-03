@@ -1,8 +1,16 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
+    <button class="btn btn-success">
+        <i class="fas fa-save"></i>
+        {{ button_label|default('Guardar') }}
+    </button>
+
+{{ form_end(form) }}
+
 
 {# {{ form_widget(form.age) }} #}
 
+    {#
     {{ form_row(form.nombre) }}
     <h3>Salas</h3>
     <ul class="sala" data-prototype="{{ form_widget(form.sala.vars.prototype)|e('html_attr') }}">
@@ -13,9 +21,6 @@
     <button type="butoon" class="add_item_link btn btn-success" data-collection-holder-class="sala">
         Añadir sala
     </button>
+    #}
 
-    <button class="btn btn-success">
-        <i class="fas fa-save"></i>
-        {{ button_label|default('Guardar') }}
-    </button>
-{{ form_end(form) }}
+

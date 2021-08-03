@@ -27,6 +27,7 @@ class CentroRepository extends ServiceEntityRepository
                        centro.tipo, centro.telefono, centro.correo
                 FROM App:Centro centro   
             ') ; */
+
         return $this->createQueryBuilder('c')
             ->select('c.id')
             ->addSelect('c.nombre')

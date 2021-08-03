@@ -47,13 +47,6 @@ class CentroController extends AbstractController
     {
         $centro = new Centro();
 
-        //$sala1 = new Salas();
-        //$sala1 -> setNombre('sala1');
-        //$centro -> getSala() -> add($sala1);
-        //$sala2 = new Salas();
-        //$sala2 -> setNombre('sala2');
-        //$centro -> getSala() -> add($sala2);
-
         $form = $this->createForm(CentroType::class, $centro);
         $form->handleRequest($request);
 

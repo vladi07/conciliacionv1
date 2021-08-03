@@ -1,26 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Departamentos{% endblock %}
+{% block title %}
+    {{ parent() }}|Departamentos
+{% endblock %}
 
 {% block body %}
-    <h1>Departamentos</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ departamento.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ departamento.nombre }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('departamentos_index') }}">back to list</a>
-
-    <a href="{{ path('departamentos_edit', {'id': departamento.id}) }}">edit</a>
-
-    {{ include('departamentos/_delete_form.html.twig') }}
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <h1>Departamentos</h1>
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ departamento.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre</th>
+                        <td>{{ departamento.nombre }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <button class="btn">
+                    <a class="btn btn-primary" href="{{ path('departamentos_index') }}">
+                        <i class="bi bi-arrow-return-left"></i>
+                        Volver
+                    </a>
+                    <a class="btn btn-success" href="{{ path('departamentos_edit', {'id': departamento.id}) }}">
+                        <i class="bi bi-pencil-square"></i>
+                        Editar
+                    </a>
+                    {{ include('departamentos/_delete_form.html.twig') }}
+                </button>
+            </div>
+        </div>
+    </div>
 {% endblock %}

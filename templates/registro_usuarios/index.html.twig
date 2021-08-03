@@ -1,87 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Registro Usuarios{% endblock %}
+{% block title %}
+    {{ parent() }}|Registro Usuarios
+{% endblock %}
 
 {% block body %}
 
-<div class="example-wrapper">
-    <h1> Bienvenido al {{ controller_name }}! ✅</h1>
-    <!-- llamamos a la clave de acceso "exito" desde el controlador -->
-    {% for message in app.flashes('exito') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-    <h3> Ingrese los datos del Usuario </h3>
-    <!--
-    Recibimos el formulario del Back
-    Renderizamos el $form con los paramettros pasados (formulario)
-    -->
-    {{ form(formulario) }}
+    <div class="container-fluid">
+        <h1>Lista de Usuarios</h1>
+       <table class="table">
+           <thead>
+               <tr>
+                   <th>Nro</th>
+                   <th>Usuario</th>
+                   <th>Contraseña</th>
+                   <th>Roles Asignados</th>
+                   <th>Fecha de Creación</th>
+                   <th>Acciones</th>
+               </tr>
+           </thead>
+           {#
+           <tbody>
+           {% for usuario in usuarios %}
+               <tr>
+                    <td>{{ usuarios.id }}</td>
+                   <td>{{ usuarios.username }}</td>
+                   <td>{{ usuarios.password }}</td>
+                   <td>{{ usuarios.roles }}</td>
+                   <td>{{ usuarios.fecha_creacion }}</td>
+                   <td>
+                       <a href="">Ver</a>
+                       <a href="">Editar</a>
+                   </td>
+               </tr>
+           {% else %}
+               <tr>
+                   <td colspan="3">No se encontraron regitros</td>
+               </tr>
+           {% endfor %}
+           </tbody>
+           #}
+       </table>
+       <a href="{{ path('Nuevo_Usuario') }}">
+           Nuevo Usuario
+       </a>
 
-    <form class="needs-validation" novalidate>
-        <div class="form-row">
-            <div class="col-md-6 mb-3">
-                <label for="validationCustom01">Nombre(s)</label>
-                <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <label for="validationCustom02">Primer Apellido</label>
-                <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <label for="validationCustom02">Segundo Apellido</label>
-                <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-6 mb-3">
-                <label for="validationCustom03">City</label>
-                <input type="text" class="form-control" id="validationCustom03" required>
-                <div class="invalid-feedback">
-                    Please provide a valid city.
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <label for="validationCustom04">State</label>
-                <select class="custom-select" id="validationCustom04" required>
-                    <option selected disabled value="">Choose...</option>
-                    <option>...</option>
-                </select>
-                <div class="invalid-feedback">
-                    Please select a valid state.
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <label for="validationCustom05">Zip</label>
-                <input type="text" class="form-control" id="validationCustom05" required>
-                <div class="invalid-feedback">
-                    Please provide a valid zip.
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                <label class="form-check-label" for="invalidCheck">
-                    Agree to terms and conditions
-                </label>
-                <div class="invalid-feedback">
-                    You must agree before submitting.
-                </div>
-            </div>
-        </div>
-        <button class="btn btn-primary" type="submit">Submit form</button>
-    </form>
+    </div>
+
+
 
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -104,11 +70,12 @@
         })();
     </script>
 
-
+    {#
     <div class="custom-control custom-switch">
         <input type="checkbox" class="custom-control-input" id="customSwitch1">
         <label class="custom-control-label" for="customSwitch1">¿Habilitar Usuraio?</label>
     </div>
+    #}
 
-</div>
+
 {% endblock %}

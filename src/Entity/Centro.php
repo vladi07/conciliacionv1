@@ -84,6 +84,7 @@ class Centro
     public function __construct()
     {
         $this -> salas = new ArrayCollection();
+        $this -> actividad = new ArrayCollection();
     }
 
     public function addSala(Salas $salas):void
@@ -122,7 +123,6 @@ class Centro
     public function setDireccion(string $direccion): self
     {
         $this->direccion = $direccion;
-
         return $this;
     }
 
@@ -134,7 +134,6 @@ class Centro
     public function setMatricula(string $matricula): self
     {
         $this->matricula = $matricula;
-
         return $this;
     }
 
@@ -146,7 +145,6 @@ class Centro
     public function setTipo(string $tipo): self
     {
         $this->tipo = $tipo;
-
         return $this;
     }
 
@@ -158,7 +156,6 @@ class Centro
     public function setTelefono(?string $telefono): self
     {
         $this->telefono = $telefono;
-
         return $this;
     }
 
@@ -170,7 +167,6 @@ class Centro
     public function setCorreo(?string $correo): self
     {
         $this->correo = $correo;
-
         return $this;
     }
 
@@ -209,7 +205,7 @@ class Centro
     /**
      * @return mixed
      */
-    public function getSalas(): Collection
+    public function getSala(): Collection
     {
         return $this->salas;
     }

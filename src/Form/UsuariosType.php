@@ -21,17 +21,14 @@ class UsuariosType extends AbstractType
         $builder
             ->add('username', TextType::class, ['label' => 'Usuario'])
             ->add('password', PasswordType::class, ['label' => 'Contraseña'])
-            ->add('estado', CheckboxType::class, [
-                'label' => '¿Desea activar este usuario?',
-                'required' => false,
-            ])
             ->add('rolAsignado',ChoiceType::class,[
                 'mapped'=>false,
-                'placeholder'=>'por favor seleccione un rol',
+                'placeholder'=>'Por favor seleccione un ROL para este Usuario',
                 'choices'=>[
-                    'ADMINISTRADOR'=>1,
-                    'CONCILUADOR'=>2,
-                    'SECRETRIA'=>3
+                    'ADMINISTRADOR_AJAN'=>1,
+                    'ADMINISTRADOR_CENTRO'=>2,
+                    'CONCILIADOR'=>3,
+                    'SECRETARIA'=>4
                 ]
             ])
             //->add('creadoPor')
@@ -39,6 +36,11 @@ class UsuariosType extends AbstractType
                 //'class' => Persona::class,
             //])
             //->add('centro')
+            ->add('Estado', CheckboxType::class, [
+                'label_attr' => ['class' => 'switch-custom'],
+                'label' => '¿Desea activar este Usuario?',
+                'required' => false,
+            ])
             ->add('Registrar', SubmitType::class)
         ;
     }

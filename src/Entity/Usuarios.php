@@ -40,7 +40,7 @@ class Usuarios implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=false)
      */
     private $estado;
 
@@ -316,7 +316,4 @@ class Usuarios implements UserInterface
 
         return $this;
     }
-
-
-
 }

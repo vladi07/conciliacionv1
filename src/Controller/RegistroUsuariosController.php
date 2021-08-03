@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Usuarios;
 use App\Form\UsuariosType;
+use App\Repository\UsuarioExternoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,24 +12,48 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * @Route("/usuarios")
+ */
 class RegistroUsuariosController extends AbstractController
 {
     private $permisos=[
         1=>[
-            'ROLE_ASDASd',
-            'ROLE_ASDASDAsd',
-            'ROLE_123123'
+            'ROLE_ADMIN_AJAN',
+            'ROLE_ADMIN_CENTRO',
+            'ROLE_CONCILIADOR',
+            'ROLE_SECRETARIA'
         ],
-        2=>['ROLE_USUUAUAUA'],
-        3=>[]
+        2=>['ROLE_ADMIN_CENTRO',
+            'ROLE_CONCILIADOR',
+            'ROLE_SECRETARIA'
+        ],
+        3=>['ROLE_CONCILIADOR',
+            'ROLE_SECRETARIA'
+        ],
+        4=>['ROLE_SECRETARIA']
     ];
+
     /**
-     * @Route("/registro_usuarios", name="Registrar_Usuarios")
+     * @Route("/", name="Lista_Usuarios", methods={"GET"})
+     */
+    public function index(UsuarioExternoRepository $usuarioExternoRepository): Response
+    {
+        //Creamos las restricciones para acceder al formulario del sistema
+        //$this->denyAccessUnlessGranted("ROLE_ADMIN_AJAN");
+
+        return $this -> render('registro_usuarios/index.html.twig',[
+            'usuarios' => $usuarioExternoRepository -> findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/nuevo_usuario", name="Nuevo_Usuario")
      *
      */
-    public function index(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $this->denyAccessUnlessGranted("ROLE_123123");
+        //$this->denyAccessUnlessGranted("ROLE_123123");
         $usuario = new Usuarios();
         $form = $this -> createForm(UsuariosType::class, $usuario);
         $form -> handleRequest($request);
@@ -59,11 +84,11 @@ class RegistroUsuariosController extends AbstractController
             //Mostramos un mensaje personalizado en la parte superior del TEMPLATE
             $this -> addFlash('exito', Usuarios::REGISTRO_EXITOSO);
 
-            return $this -> redirectToRoute('Registrar_Usuarios');
+            return $this -> redirectToRoute('Lista_Usuarios');
         }
         // Mostramos los datos en el TEMPLATE del controlador
         return $this -> render('registro_usuarios/index.html.twig', [
-            'controller_name' => 'Módulo de Administración de Usuarios',
+            'controller_name' => 'Lista de los Usuarios',
             'formulario' => $form -> createView()
         ]);
     }
