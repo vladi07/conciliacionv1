@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Persona;
+use App\Entity\Usuarios;
 use App\Form\PersonaType;
+use App\Repository\PersonaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -87,5 +89,39 @@ class PersonaController extends AbstractController
     public function MisPersonas(){
         $em = $this->getDoctrine()->getManager();
         $usuario = $this->getUser();
+    }
+
+
+    /**
+     * @Route("/perfil/{id}", name="Perfil_Usuario", methods={"GET","POST"})
+     */
+    public function VerPerfil($id): Response
+    {
+        $em = $this -> getDoctrine() -> getManager();
+        $perfil = $em -> getRepository(Persona::class) -> find($id);
+
+        return $this -> render('Perfil/verPerfil.html.twig', [
+            'vista_perfil' => $perfil
+        ]);
+    }
+
+    /**
+     * @Route("/perfil/{id}/editar", name="Editar_Perfil", methods={"GET","POST"})
+     */
+    public function EditarPerfil(Request $request, Persona $persona, Usuarios $usuarios): Response
+    {
+        $form = $this -> createForm(PersonaType::class, $persona);
+        $form -> handleRequest($request);
+
+        if ($form -> isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this -> redirectToRoute('Perfil_Usuario');
+        }
+
+        return $this -> render('Perfil/editarPerfil.html.twig', [
+           'vista_editar_perfil' => $persona,
+           'form' => $form -> createView(),
+        ]);
     }
 }

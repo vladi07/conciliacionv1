@@ -1,11 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nueva Solicitud{% endblock %}
+{% block title %}
+    {{ parent() }}|Nueva Solicitud
+{% endblock %}
 
 {% block body %}
-    <h1>Crear Nueva Solicitud de Conciliación</h1>
+    <div class="container-fluid">
+        <div class="card" style="width: 50rem;">
+            <div class="card-body">
+                <h2>Nueva Solicitud de Conciliación</h2>
 
-    {{ include('solicitud/_form.html.twig') }}
 
-    <a href="{{ path('solicitud_index') }}">Volver a lista</a>
+                <hr>
+                {# Llamamos al formulario  #}
+                {{ include('solicitud/_form.html.twig') }}
+                <br>
+                <a class="btn btn-primary" href="{{ path('solicitud_index') }}">
+                    <i class="bi bi-arrow-return-left"></i>
+                    Volver a lista
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

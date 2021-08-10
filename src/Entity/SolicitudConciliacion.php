@@ -66,7 +66,7 @@ class SolicitudConciliacion
      */
     public function __construct()
     {
-        $this->solicitante = new ArrayCollection();
+        $this -> solicitante = new ArrayCollection();
         $this -> fecha = new \DateTime();
     }
 

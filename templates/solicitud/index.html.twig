@@ -1,43 +1,63 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent()}}| Index Solicitudes
+    {{ parent()}}|Solicitudes
 {% endblock %}
 
 {% block body %}
-    <h1>Solicitudes de Conciliación</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Descripción</th>
-                <th>Materia</th>
-                <th>Tipo de Conciliación</th>
-                <th>Fecha de Registro</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for solicitud_conciliacion in solicitud_conciliacions %}
-            <tr>
-                <td>{{ solicitud_conciliacion.id }}</td>
-                <td>{{ solicitud_conciliacion.descripcion }}</td>
-                <td>{{ solicitud_conciliacion.materia }}</td>
-                <td>{{ solicitud_conciliacion.tipoConciliacion }}</td>
-                <td>{{ solicitud_conciliacion.fecha ? solicitud_conciliacion.fecha|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('solicitud_show', {'id': solicitud_conciliacion.id}) }}">Ver</a>
-                    <a href="{{ path('solicitud_edit', {'id': solicitud_conciliacion.id}) }}">Editar</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">NO SE ENCONTRARON REGISTROS</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('solicitud_new') }}">CREAR NUEVO</a>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <h1>Solicitudes de Conciliación</h1>
+                <a class="btn btn-success" href="{{ path('solicitud_new') }}">
+                    <i class="bi bi-plus-square"></i>
+                    Nueva Solicitud
+                </a>
+                <div class="table table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nro</th>
+                                <th>Solicitante</th>
+                                <th>Descripción</th>
+                                <th>Materia</th>
+                                <th>Tipo de Conciliación</th>
+                                <th>Fecha de Registro</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {# objeto.php in varible a mostrar en el controlador #}
+                        {% for solicitud_conciliacion in solicitudes %}
+                            <tr>
+                                {#
+                                <td>{{ solicitud_conciliacion.solicitante }}</td>
+                                #}
+                                <td>{{ solicitud_conciliacion.id }}</td>
+                                <td>{{ solicitud_conciliacion.descripcion }}</td>
+                                <td>{{ solicitud_conciliacion.materia }}</td>
+                                <td>{{ solicitud_conciliacion.tipoConciliacion }}</td>
+                                <td>{{ solicitud_conciliacion.fecha ? solicitud_conciliacion.fecha|date('Y-m-d') : '' }}</td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ path('solicitud_show', {'id': solicitud_conciliacion.id}) }}">
+                                        <i class="bi bi-eye-fill"></i>
+                                        Ver
+                                    </a>
+                                    <a class="btn btn-info" href="{{ path('solicitud_edit', {'id': solicitud_conciliacion.id}) }}">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Editar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6">NO SE ENCONTRARON REGISTROS</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

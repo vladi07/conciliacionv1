@@ -72,6 +72,7 @@ class CentroController extends AbstractController
     {
         $form=$this->createForm(SalasType::class,null);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
             /** @var Salas $sala */
             $sala =$form->getData();

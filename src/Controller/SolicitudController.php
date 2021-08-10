@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\SolicitudConciliacion;
 use App\Form\SolicitudConciliacionType;
 use App\Repository\SolicitudConciliacionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,7 @@ class SolicitudController extends AbstractController
     public function index(SolicitudConciliacionRepository $solicitudConciliacionRepository): Response
     {
         return $this->render('solicitud/index.html.twig', [
-            'solicitud_conciliacions' => $solicitudConciliacionRepository->findAll(),
+            'solicitudes' => $solicitudConciliacionRepository->findAll(),
         ]);
     }
 
@@ -30,6 +31,10 @@ class SolicitudController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $nuevoSolicitante = new ArrayCollection();
+
+
+
         $solicitudConciliacion = new SolicitudConciliacion();
         $form = $this->createForm(SolicitudConciliacionType::class, $solicitudConciliacion);
         $form->handleRequest($request);
@@ -44,7 +49,7 @@ class SolicitudController extends AbstractController
 
         return $this->render('solicitud/new.html.twig', [
             'solicitud_conciliacion' => $solicitudConciliacion,
-            'form' => $form->createView(),
+            'formulario' => $form->createView(),
         ]);
     }
 
@@ -74,7 +79,7 @@ class SolicitudController extends AbstractController
 
         return $this->render('solicitud/edit.html.twig', [
             'solicitud_conciliacion' => $solicitudConciliacion,
-            'form' => $form->createView(),
+            'formulario' => $form->createView(),
         ]);
     }
 

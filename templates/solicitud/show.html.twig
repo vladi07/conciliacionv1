@@ -1,38 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SolicitudConciliacion{% endblock %}
+{% block title %}
+    {{ parent() }}|Ver_Solicitud
+{% endblock %}
 
 {% block body %}
-    <h1>SolicitudConciliacion</h1>
+    <div class="container-fluid">
+        <div class="card" style="width: 40rem;">
+            <div class="card-body">
+                <div class="card-title">
+                    <h2>Datos de la Solicitud</h2>
+                </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ solicitud_conciliacion.id }}</td>
-            </tr>
-            <tr>
-                <th>Descripción</th>
-                <td>{{ solicitud_conciliacion.descripcion }}</td>
-            </tr>
-            <tr>
-                <th>Materia</th>
-                <td>{{ solicitud_conciliacion.materia }}</td>
-            </tr>
-            <tr>
-                <th>Tipo de Conciliación</th>
-                <td>{{ solicitud_conciliacion.tipoConciliacion }}</td>
-            </tr>
-            <tr>
-                <th>Fecha de Solicitud</th>
-                <td>{{ solicitud_conciliacion.fecha ? solicitud_conciliacion.fecha|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <th>Nro</th>
+                        <td>{{ solicitud_conciliacion.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Descripción</th>
+                        <td>{{ solicitud_conciliacion.descripcion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Materia</th>
+                        <td>{{ solicitud_conciliacion.materia }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tipo de Conciliación</th>
+                        <td>{{ solicitud_conciliacion.tipoConciliacion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Solicitud</th>
+                        <td>{{ solicitud_conciliacion.fecha ? solicitud_conciliacion.fecha|date('Y-m-d') : '' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
 
-    <a href="{{ path('solicitud_index') }}">back to list</a>
+                <a class="btn btn-primary" href="{{ path('solicitud_index') }}">
+                    <i class="bi bi-arrow-return-left"></i>
+                    Volver
+                </a>
 
-    <a href="{{ path('solicitud_edit', {'id': solicitud_conciliacion.id}) }}">edit</a>
+                <a class="btn btn-success" href="{{ path('solicitud_edit', {'id': solicitud_conciliacion.id}) }}">
+                    <i class="bi bi-pencil-square"></i>
+                    Editar
+                </a>
 
-    {{ include('solicitud/_delete_form.html.twig') }}
+                <a class="btn">
+                    {{ include('solicitud/_delete_form.html.twig') }}
+                </a>
+
+
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

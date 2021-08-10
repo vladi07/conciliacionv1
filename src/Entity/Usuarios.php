@@ -58,11 +58,6 @@ class Usuarios implements UserInterface
     private $fechaCreacion;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Funciones", mappedBy="usuarios")
-     */
-    private $funciones;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Persona", inversedBy="usuarios")
      */
     private $persona;
@@ -122,14 +117,12 @@ class Usuarios implements UserInterface
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
         return $this;
     }
 
@@ -144,7 +137,6 @@ class Usuarios implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
         return $this;
     }
 
@@ -242,22 +234,6 @@ class Usuarios implements UserInterface
     /**
      * @return mixed
      */
-    public function getFunciones()
-    {
-        return $this->funciones;
-    }
-
-    /**
-     * @param mixed $funciones
-     */
-    public function setFunciones($funciones): void
-    {
-        $this->funciones = $funciones;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getPersona()
     {
         return $this->persona;
@@ -313,7 +289,6 @@ class Usuarios implements UserInterface
                 $solicitudConciliacion->setUsuario(null);
             }
         }
-
         return $this;
     }
 }

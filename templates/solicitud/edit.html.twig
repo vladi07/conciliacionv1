@@ -1,13 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit SolicitudConciliacion{% endblock %}
+{% block title %}
+    {{ parent() }}|Editar Solicitud
+{% endblock %}
 
 {% block body %}
-    <h1>Edit SolicitudConciliacion</h1>
+    <div class="container-fluid">
+        <div class="card" style="width: 50rem;">
+            <div class="card-body">
+                <h2>Editar Solicitud</h2>
+                <hr>
 
-    {{ include('solicitud/_form.html.twig', {'button_label': 'Update'}) }}
+                {{ include('solicitud/_form.html.twig', {'button_label': 'Actualizar'}) }}
 
-    <a href="{{ path('solicitud_index') }}">back to list</a>
+                <a class="btn btn-primary" href="{{ path('solicitud_index') }}">
+                    <i class="bi bi-arrow-return-left"></i>
+                    Volver
+                </a>
+                <a class="btn">
+                    {{ include('solicitud/_delete_form.html.twig') }}
+                </a>
 
-    {{ include('solicitud/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+
+
+
 {% endblock %}

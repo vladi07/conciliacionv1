@@ -3,18 +3,25 @@
 {% block title %}Registro Persona{% endblock %}
 
 {% block body %}
+    <div class="container-fluid">
+        <div class="card" style="width: 50rem;">
+            <div class="card-body">
+                <h1>{{ controller_name }}! ✅</h1>
+                <!-- Insertamos en la vista los mensajes de alerta -->
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <h3> Ingrese los datos del Solicitante </h3>
+                {{ form(formulario) }}
+            </div>
+        </div>
+    </div>
 
 
 <div class="example-wrapper">
-    <h1>{{ controller_name }}! ✅</h1>
-    <!-- Insertamos en la vista los mensajes de alerta -->
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-    <h3> Ingrese los datos del Solicitante </h3>
-    {{ form(formulario) }}
+
 
 </div>
 {% endblock %}
