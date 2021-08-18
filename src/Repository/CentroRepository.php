@@ -42,6 +42,11 @@ class CentroRepository extends ServiceEntityRepository
             ->getQuery();
     }
 
+    public function MiCentro(){
+        return $this -> createQueryBuilder('c')
+            -> select('c.id');
+    }
+
     // /**
     //  * @return Centro[] Returns an array of Centro objects
     //  */

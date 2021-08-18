@@ -3,8 +3,9 @@
       onsubmit="return confirm('¿Está seguro de que desea eliminar este Centro?');">
 
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ centro.id) }}">
-    <a class="btn btn-danger" href="">
-        <i class="far fa-trash-alt"></i>
+
+    <button class="btn btn-danger">
+        <i class="bi bi-trash"></i>
         Eliminar
-    </a>
+    </button>
 </form>

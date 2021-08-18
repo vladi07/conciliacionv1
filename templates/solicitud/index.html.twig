@@ -19,10 +19,12 @@
                             <tr>
                                 <th>Nro</th>
                                 <th>Solicitante</th>
+                                <th>Registrado Por</th>
+                                <th>Fecha de Registro</th>
                                 <th>Descripción</th>
+                                <th>Conciliador</th>
                                 <th>Materia</th>
                                 <th>Tipo de Conciliación</th>
-                                <th>Fecha de Registro</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -59,5 +61,73 @@
                 </div>
             </div>
         </div>
+        {# Vista las pestañas de VALORACION-NUEVO-TRATAMIENTO-CONCLUIDO #}
+        <div class="card">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-link active" id="nav-valoracion-tab" data-toggle="tab" href="#nav-valoracion" role="tab" aria-controls="nav-valoracion" aria-selected="true">VALORACIÓN</a>
+                    <a class="nav-link" id="nav-nuevo-tab" data-toggle="tab" href="#nav-nuevo" role="tab" aria-controls="nav-nuevo" aria-selected="false">NUEVO</a>
+                    <a class="nav-link" id="nav-tratamiento-tab" data-toggle="tab" href="#nav-tratamiento" role="tab" aria-controls="nav-tratamiento" aria-selected="false">TRATAMIENTO</a>
+                    <a class="nav-link" id="nav-concluido-tab" data-toggle="tab" href="#nav-concluido" role="tab" aria-controls="nav-concluido" aria-selected="false">CONCLUIDO</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-valoracion" role="tabpanel" aria-labelledby="nav-valoracion-tab">
+                    <h1>Pestaña de casos a valorar</h1>
+                </div>
+                <div class="tab-pane fade" id="nav-nuevo" role="tabpanel" aria-labelledby="nav-nuevo-tab">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Nro</th>
+                            <th>Solicitante</th>
+                            <th>Descripción</th>
+                            <th>Materia</th>
+                            <th>Tipo de Conciliación</th>
+                            <th>Fecha de Registro</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {# objeto.php in varible a mostrar en el controlador #}
+                        {% for solicitud_conciliacion in solicitudes %}
+                            <tr>
+                                {#
+                                <td>{{ solicitud_conciliacion.solicitante }}</td>
+                                #}
+                                <td>{{ solicitud_conciliacion.id }}</td>
+                                <td>{{ solicitud_conciliacion.descripcion }}</td>
+                                <td>{{ solicitud_conciliacion.materia }}</td>
+                                <td>{{ solicitud_conciliacion.tipoConciliacion }}</td>
+                                <td>{{ solicitud_conciliacion.fecha ? solicitud_conciliacion.fecha|date('Y-m-d') : '' }}</td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ path('solicitud_show', {'id': solicitud_conciliacion.id}) }}">
+                                        <i class="bi bi-eye-fill"></i>
+                                        Ver
+                                    </a>
+                                    <a class="btn btn-info" href="{{ path('solicitud_edit', {'id': solicitud_conciliacion.id}) }}">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Editar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6">NO SE ENCONTRARON REGISTROS</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="nav-tratamiento" role="tabpanel" aria-labelledby="nav-tratamiento-tab">
+                    <h3>Pestaña de casos con tratamiento</h3>
+                </div>
+                <div class="tab-pane fade" id="nav-concluido" role="tabpanel" aria-labelledby="nav-concluido-tab">
+                    <h4>Pestaña para casos concluidos</h4>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 {% endblock %}

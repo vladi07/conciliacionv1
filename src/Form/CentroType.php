@@ -10,6 +10,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -23,8 +25,8 @@ class CentroType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('direccion')
-            ->add('matricula')
+            ->add('direccion', TextType::class)
+            ->add('matricula', )
             ->add('tipo', ChoiceType::class,[
                 'placeholder' => 'Seleccione una opción',
                 'choices' => [
@@ -32,11 +34,17 @@ class CentroType extends AbstractType
                     'Publico' => 'PUBLICO',
                 ]
             ])
+            /*
             ->add('telefono', IntegerType::class, [
                 'constraints' => [
-                    new NotBlank(                    )
+                    new NotBlank()
                 ]
             ])
+            */
+            ->add('telefono', NumberType::class, array(
+                'label' => 'Número de Teléfono',
+                'required' => true,
+            ))
             ->add('correo')
             ->add('departamento', EntityType::class,[
                 'placeholder' => 'Seleccione una opción',
