@@ -1,27 +1,106 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Registro Persona{% endblock %}
+{% block title %}
+    {{ parent() }}|Persona
+{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-        <div class="card" style="width: 50rem;">
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="card">
             <div class="card-body">
-                <h1>{{ controller_name }}! ✅</h1>
-                <!-- Insertamos en la vista los mensajes de alerta -->
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-success">
-                        {{ message }}
+                <h3 class="font-weight-bold">Lista de Personas Registradas</h3>
+                <div class="d-flex bd-highlight mb-3">
+                    {# Boton de Añadir Persona #}
+                    <div class="p-2 bd-highlight">
+                        <a class="btn btn-success" href="{{ path('nueva_persona') }}">
+                            <i class="bi bi-plus-square"></i>
+                            Añadir Persona
+                        </a>
                     </div>
-                {% endfor %}
-                <h3> Ingrese los datos del Solicitante </h3>
-                {{ form(formulario) }}
+                    {# Nro total de items #}
+                    <div class="ml-auto p-2 bd-highlight">
+                        <a class="btn btn-info">
+                            Cantidad Total de Personas: {{ pagination.getTotalItemCount }}
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="table-active">
+                                {#
+                                <th>Nro</th>
+                                #}
+                                <th>Nombre(s)</th>
+                                <th>Apellido Paterno</th>
+                                <th>Apellido Materno</th>
+                                <th>Documento Identidad</th>
+                                {#
+                                <th>Expedido</th>
+                                <th>Fecha de Nacimiento</th>
+                                #}
+                                <th>Género</th>
+                                {#
+                                <th>Correo Electronico</th>
+                                #}
+                                <th>Teléfono</th>
+                                <th>Grado Academico</th>
+                                <th>Domicilio</th>
+                                <th>Departamento</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#
+                            {% for persona in personas %}
+                            #}
+                            {% for article in pagination %}
+                                <tr {% if loop.index is odd %} class="color" {% endif %}>
+                                    {#
+                                    <td>{{ article.id }}</td>
+                                    #}
+                                    <td>{{ article.nombres }}</td>
+                                    <td>{{ article.primerApellido }}</td>
+                                    <td>{{ article.segundoApellido }}</td>
+                                    <td>{{ article.numeroDocumento }}</td>
+                                    {#
+                                    <td>{{ article.expedido }}</td>
+                                    <td>{{ article.fechaNacimiento|date("d/m/Y") }}</td>
+                                    #}
+                                    <td>{{ article.genero }}</td>
+                                    {#
+                                    <td>{{ article.correo }}</td>
+                                    #}
+                                    <td>{{ article.telefono }}</td>
+                                    <td>{{ article.gradoAcademico }}</td>
+                                    <td>{{ article.domicilio }}</td>
+                                    <td>{{ article.nombreDepartamento }}</td>
+                                    <td>
+                                        <a class="btn btn-success" href="{{ path('ver_persona', {'id':article.id}) }}">
+                                            <i class="bi bi-eye-fill"></i>
+                                            Ver
+                                        </a>
+                                        <a class="btn btn-info" href="{{ path('editar_persona', {'id':article.id}) }}">
+                                            <i class="bi bi-pencil-square"></i>
+                                            Editar
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="6">NO SE ENCONTRARON REGISTROS</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {# PAGINACION #}
+                <div class="navigation">
+                    <ul class="pagination justify-content-center">
+                        {{ knp_pagination_render(pagination) }}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-
-
-<div class="example-wrapper">
-
-
-</div>
 {% endblock %}

@@ -1,34 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Agenda{% endblock %}
+{% block title %}
+    {{ parent() }}|Agenda|Ver
+{% endblock %}
 
 {% block body %}
-    <h1>Agenda</h1>
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="font-weight-bold">Detalle de la Agenda</h3>
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ agenda.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Usuario</th>
+                        <td>{{ agenda.usuario }}</td>
+                    </tr>
+                    <tr>
+                        <th>Materia</th>
+                        <td>{{ agenda.materia }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha</th>
+                        <td>{{ agenda.fecha ? agenda.fecha|date('d-m-Y') : '' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <button class="btn">
+                    <a class="btn btn-primary" href="{{ path('agenda_index') }}">
+                        <i class="bi bi-arrow-return-left"></i>
+                        Volver
+                    </a>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ agenda.id }}</td>
-            </tr>
-            <tr>
-                <th>Usuario</th>
-                <td>{{ agenda.usuario }}</td>
-            </tr>
-            <tr>
-                <th>Materia</th>
-                <td>{{ agenda.materia }}</td>
-            </tr>
-            <tr>
-                <th>Fecha</th>
-                <td>{{ agenda.fecha ? agenda.fecha|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+                    <a class="btn btn-success" href="{{ path('agenda_edit', {'id': agenda.id}) }}">
+                        <i class="bi bi-pencil-square"></i>
+                        Editar
+                    </a>
 
-    <a href="{{ path('agenda_index') }}">back to list</a>
-
-    <a href="{{ path('agenda_edit', {'id': agenda.id}) }}">edit</a>
-
-    {{ include('agenda/_delete_form.html.twig') }}
+                    {{ include('agenda/_delete_form.html.twig') }}
+                </button>
+            </div>
+        </div>
+    </div>
 {% endblock %}

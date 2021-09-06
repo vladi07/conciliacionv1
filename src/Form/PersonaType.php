@@ -23,12 +23,17 @@ class PersonaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombres')
+            ->add('nombres', TextType::class,[
+                'label' => 'Nombre(s)'
+            ])
             ->add('primerApellido', TextType::class, [
                 'label' => 'Primer Apellido'
             ])
             ->add('segundoApellido')
-            ->add('numeroDocumento', NumberType::class)
+            ->add('numeroDocumento', NumberType::class, [
+                'label' => 'Documento de Identidad',
+                'help' => 'Ingrese solo números',
+            ])
             ->add('expedido', ChoiceType::class,[
                 'placeholder' => 'Seleccione una opción',
                 'choices' => [
@@ -43,9 +48,11 @@ class PersonaType extends AbstractType
                     'PD' => 'Pando',
                 ]
             ])
-            ->add('fechaNacimiento', DateType::class,['widget' => 'single_text'])
+            ->add('fechaNacimiento', DateType::class,[
+                'widget' => 'single_text'
+            ])
             ->add('genero',ChoiceType::class,[
-                'placeholder' => 'Seleccione una opción',
+                'label' => 'Género',
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
@@ -58,10 +65,26 @@ class PersonaType extends AbstractType
                 'required' => false
             ])
             ->add('telefono', NumberType::class,[
+                'label' => 'Teléfono o Celular',
                 'required' => false
             ] )
-            ->add('gradoAcademico')
-            ->add('domicilio')
+            ->add('gradoAcademico', ChoiceType::class,[
+                'label' => 'Grado Academico',
+                'placeholder' => 'Selecciones una opción',
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+                'choices' => [
+                    'PRIMARIA' => 'Primaria',
+                    'SECUNDARIA' => 'Secundaria',
+                    'TÉCNICO' => 'Tecnico',
+                    'LICENCIATURA' => 'Licenciatura',
+                    'MAESTRIA' => 'Maestria',
+                    'DOCTORADO' => 'Doctorado',
+                    'NINGUNO' => 'Ninguno'
+                ]
+            ])
+            ->add('domicilio', TextType::class)
             ->add('departamento',EntityType::class,[
                 'placeholder' => 'Seleccione una opción',
                 'class' => Departamentos::class,
@@ -71,10 +94,18 @@ class PersonaType extends AbstractType
             ])
             ->add('foto', FileType::class, [
                 'label' => 'Foto de Perfil',
+                // sin asignar significa que este campo no está asociado a ninguna propiedad de entidad
                 'mapped' => false,
-                'required' => false
+                // hágalo opcional para que no tenga que volver a cargar el archivo PDF
+                // cada vez que edita los detalles del producto
+                'required' => false,
+                'help' => 'Seleccione un archivo PNG o JPG'
+                // los campos no asignados no pueden definir su validación mediante anotaciones
+                // en la entidad asociada, para que pueda usar las clases de restricción de PHP
             ])
-            ->add('Registrar', SubmitType::class)
+            /*
+             ->add('Registrar', SubmitType::class)
+            */
         ;
     }
 

@@ -1,53 +1,92 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }}|Registro Usuarios
+    {{ parent() }}|Usuarios
 {% endblock %}
 
 {% block body %}
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="font-weight-bold">Usuarios Registrados</h3>
+                <div class="d-flex bd-highlight mb-3">
+                    <div class="p-2 bd-highlight">
+                        <a class="btn btn-success" href="{{ path('nuevo_usuario') }}">
+                            <i class="bi bi-plus-square"></i>
+                            Crear Usuario
+                        </a>
+                    </div>
+                    <div class="ml-auto p-2 bd-highlight">
+                        <a class="btn btn-info">
+                            Cantidad de Usuarios Registrados: {{ pagination.getTotalItemCount }}
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nro</th>
+                                <th>Usuario</th>
+                                {#
+                                <th>Contraseña</th>
 
-    <div class="container-fluid">
-        <h1>Lista de Usuarios</h1>
-       <table class="table">
-           <thead>
-               <tr>
-                   <th>Nro</th>
-                   <th>Usuario</th>
-                   <th>Contraseña</th>
-                   <th>Roles Asignados</th>
-                   <th>Fecha de Creación</th>
-                   <th>Acciones</th>
-               </tr>
-           </thead>
-           {#
-           <tbody>
-           {% for usuario in usuarios %}
-               <tr>
-                    <td>{{ usuarios.id }}</td>
-                   <td>{{ usuarios.username }}</td>
-                   <td>{{ usuarios.password }}</td>
-                   <td>{{ usuarios.roles }}</td>
-                   <td>{{ usuarios.fecha_creacion }}</td>
-                   <td>
-                       <a href="">Ver</a>
-                       <a href="">Editar</a>
-                   </td>
-               </tr>
-           {% else %}
-               <tr>
-                   <td colspan="3">No se encontraron regitros</td>
-               </tr>
-           {% endfor %}
-           </tbody>
-           #}
-       </table>
-       <a href="{{ path('Nuevo_Usuario') }}">
-           Nuevo Usuario
-       </a>
+                                <th>Roles Asignados</th>
+                                #}
+                                <th>Fecha de Creación</th>
+                                <th>Creado Por</th>
+                                <th>Activo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for article in pagination %}
+                            <tr {% if loop.index is odd %} class="color" {% endif %}>
+                                {#
+                                <td>{{ usuarios.id }}</td>
+                                <td>{{ usuarios.username }}</td>
+                                <td>{{ usuarios.password }}</td>
+                                <td>{{ usuarios.roles }}</td>
+                                <td>{{ usuarios.fecha_creacion }}</td>
+                                #}
+                                <td>{{ article.id }}</td>
+                                <td>{{ article.username }}</td>
+                                {#
+                                <td>{{ article.password }}</td>
 
+                                <td>{{ article.roles }}</td>
+                                #}
+                                <td>{{ article.fechaCreacion|date("d-m-Y") }}</td>
+                                <td>{{ article.creadoPor }}</td>
+                                <td>{{ article.estado }}</td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ path('ver_usuario', {'id':article.id}) }}">
+                                        <i class="bi bi-eye-fill"></i>
+                                        Ver
+                                    </a>
+                                    <a class="btn btn-info" href="{{ path('ver_usuario', {'id':article.id}) }}">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Editar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">NO SE ENCONTRARON REGISTROS</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {# PAGINACION #}
+                <div class="navigation">
+                    <ul class="pagination justify-content-center">
+                        {{ knp_pagination_render(pagination) }}
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-
-
 
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -76,6 +115,5 @@
         <label class="custom-control-label" for="customSwitch1">¿Habilitar Usuraio?</label>
     </div>
     #}
-
 
 {% endblock %}

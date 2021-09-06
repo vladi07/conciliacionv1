@@ -23,7 +23,7 @@ class PrincipalController extends AbstractController
         //-> findOneBy(['nombres'=>'Carola Alejandra']);
         //$personalizado2 = $em -> getRepository(Persona::class)
         //-> findBy(['primerApellido'=>'Perez']);
-        $query = $em->getRepository(Persona::class)->BuscarPersonas();
+        $query = $em->getRepository(Persona::class)->TodasPersonas();
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/

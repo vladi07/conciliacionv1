@@ -22,6 +22,7 @@ class UsuariosType extends AbstractType
             ->add('username', TextType::class, ['label' => 'Usuario'])
             ->add('password', PasswordType::class, ['label' => 'Contraseña'])
             ->add('rolAsignado',ChoiceType::class,[
+                'label' => 'Roles de Usuario',
                 'mapped'=>false,
                 'placeholder'=>'Por favor seleccione un ROL para este Usuario',
                 'choices'=>[
@@ -32,16 +33,17 @@ class UsuariosType extends AbstractType
                 ]
             ])
             //->add('creadoPor')
-            //->add('persona', EntityType::class, [
-                //'class' => Persona::class,
-            //])
+            ->add('persona', EntityType::class, [
+                'class' => Persona::class,
+            ])
             //->add('centro')
-            ->add('Estado', CheckboxType::class, [
+            ->add('estado', CheckboxType::class, [
                 'label_attr' => ['class' => 'switch-custom'],
                 'label' => '¿Desea activar este Usuario?',
-                'required' => false,
+                'required' => true,
             ])
-            ->add('Registrar', SubmitType::class)
+
+            //->add('Registrar', SubmitType::class)
         ;
     }
 

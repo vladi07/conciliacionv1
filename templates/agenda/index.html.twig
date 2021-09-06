@@ -1,39 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Agenda index{% endblock %}
+{% block title %}
+    {{ parent() }}|Agenda
+{% endblock %}
 
 {% block body %}
-    <h1>Agenda index</h1>
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="font-weight-bold">Agenda de Conciliaciones</h3>
+                <div class="d-flex bd-highlight mb-3">
+                    <div class="p-2 bd-highlight">
+                        <a class="btn btn-success" href="{{ path('agenda_new') }}">
+                            <i class="bi bi-plus-square"></i>
+                            Añadir Agenda
+                        </a>
+                    </div>
+                    <div class="ml-auto p-2 bd-highlight">
+                        <a class="btn btn-info">
+                            Agendas Registradas:
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr class="table-active">
+                            <th>Nro</th>
+                            <th>Usuario</th>
+                            <th>Materia</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for agenda in agendas %}
+                            <tr>
+                                <td>{{ agenda.id }}</td>
+                                <td>{{ agenda.usuario }}</td>
+                                <td>{{ agenda.materia }}</td>
+                                <td>{{ agenda.fecha ? agenda.fecha|date('d-m-Y') : '' }}</td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ path('agenda_show', {'id': agenda.id}) }}">
+                                        <i class="bi bi-eye-fill"></i>
+                                        Ver
+                                    </a>
+                                    <a class="btn btn-info" href="{{ path('agenda_edit', {'id': agenda.id}) }}">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Editar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">NO SE ENCONTRARON REGISTROS</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {# Paginacion #}
+                <div class="navigation">
+                    <ul class="pagination justify-content-center">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Usuario</th>
-                <th>Materia</th>
-                <th>Fecha</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for agenda in agendas %}
-            <tr>
-                <td>{{ agenda.id }}</td>
-                <td>{{ agenda.usuario }}</td>
-                <td>{{ agenda.materia }}</td>
-                <td>{{ agenda.fecha ? agenda.fecha|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('agenda_show', {'id': agenda.id}) }}">show</a>
-                    <a href="{{ path('agenda_edit', {'id': agenda.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('agenda_new') }}">Create new</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

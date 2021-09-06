@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Persona;
 use App\Entity\Usuarios;
 use App\Form\UsuariosType;
 use App\Repository\UsuarioExternoRepository;
+use App\Repository\UsuariosRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,21 +38,31 @@ class RegistroUsuariosController extends AbstractController
     ];
 
     /**
-     * @Route("/", name="Lista_Usuarios", methods={"GET"})
+     * @Route("/", name="usuario_index", methods={"GET"})
      */
-    public function index(UsuarioExternoRepository $usuarioExternoRepository): Response
+    public function index(PaginatorInterface $paginator, Request $request, UsuariosRepository $usuariosRepository): Response
     {
         //Creamos las restricciones para acceder al formulario del sistema
         //$this->denyAccessUnlessGranted("ROLE_ADMIN_AJAN");
 
+        $em = $this -> getDoctrine() -> getManager();
+        $consulta = $em -> getRepository(Usuarios::class) -> TodosUsuarios();
+
+        $pagination= $paginator -> paginate(
+            $consulta,
+            $request -> query ->getInt('page',1),3
+        );
+
         return $this -> render('registro_usuarios/index.html.twig',[
+            /*
             'usuarios' => $usuarioExternoRepository -> findAll(),
+            */
+            'pagination' => $pagination
         ]);
     }
 
     /**
-     * @Route("/nuevo_usuario", name="Nuevo_Usuario")
-     *
+     * @Route("/nuevo", name="nuevo_usuario", methods={"GET","POST"})
      */
     public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -66,6 +79,7 @@ class RegistroUsuariosController extends AbstractController
             $usuario -> setPassword($passwordEncoder -> encodePassword(
                 $usuario, $form['password'] -> getData()
             ));
+            // Asignamos ROLES
             $rolAsignado=$form['rolAsignado']->getData();
             $usuario->setRoles($this->permisos[$rolAsignado]);
 
@@ -84,12 +98,56 @@ class RegistroUsuariosController extends AbstractController
             //Mostramos un mensaje personalizado en la parte superior del TEMPLATE
             $this -> addFlash('exito', Usuarios::REGISTRO_EXITOSO);
 
-            return $this -> redirectToRoute('Lista_Usuarios');
+            return $this -> redirectToRoute('usuario_index');
         }
         // Mostramos los datos en el TEMPLATE del controlador
-        return $this -> render('registro_usuarios/index.html.twig', [
-            'controller_name' => 'Lista de los Usuarios',
-            'formulario' => $form -> createView()
+        return $this -> render('registro_usuarios/nuevo.html.twig', [
+            //'controller_name' => 'Lista de los Usuarios',
+            'form' => $form -> createView()
         ]);
     }
+
+    /**
+     * @Route ("/{id}", name="ver_usuario", methods={"GET"})
+     */
+    public function ver(Usuarios $usuarios): Response
+    {
+        return $this -> render('registro_usuarios/ver.html.twig',[
+           'verUsuario' => $usuarios,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="editar_usuario", methods={"GET","POST"})
+     */
+    public function editar(Request $request, Usuarios $usuarios): Response
+    {
+        $form = $this -> createForm(UsuariosType::class, $usuarios);
+        $form -> handleRequest($request);
+
+        if ($form -> isSubmitted() && $form -> isValid()){
+            $this -> getDoctrine() -> getManager() -> flush();
+
+            return $this -> redirectToRoute('usuario_index');
+        }
+
+        return $this -> render('registro_usuarios/editar.html.twig',[
+            'verUsuario' => $usuarios,
+            'form' => $form -> createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="eliminar_usuario", methods={"POST"})
+     */
+    public function delete(Request $request, Usuarios $usuarios): Response
+    {
+        if ($this -> isCsrfTokenValid('delete'.$usuarios->getId(), $request->request->get('_token'))){
+            $em = $this -> getDoctrine() -> getManager();
+            $em -> remove($usuarios);
+            $em -> flush();
+        }
+        return $this -> redirectToRoute('usuario_index');
+    }
+
 }

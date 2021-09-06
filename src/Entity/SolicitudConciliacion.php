@@ -186,6 +186,7 @@ class SolicitudConciliacion
         $this->usuario = $usuario;
         return $this;
     }
+
     public function __toString()
     {
         return $this->usuario;

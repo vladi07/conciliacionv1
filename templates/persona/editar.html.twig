@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}|Persona|Edit
+{% endblock %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="font-weight-bold">Editar Datos de Persona</h3>
+                {# Formulario #}
+                {{ include('persona/_formulario.html.twig', {'button_label':'Actualizar'}) }}
+                {# Boton VOLVER #}
+                <a class="btn btn-primary" href="{{ path('persona_index') }}">
+                    <i class="bi bi-arrow-return-left"></i>
+                    Volver
+                </a>
+                {# Boton ELIMINAR #}
+                <a class="btn">
+                    {{ include('persona/_eliminar.html.twig') }}
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

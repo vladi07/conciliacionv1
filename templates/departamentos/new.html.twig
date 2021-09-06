@@ -1,11 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Departamentos{% endblock %}
+{% block title %}
+    {{ parent() }}|Departamento|Nuevo
+{% endblock %}
 
 {% block body %}
-    <h1>Crear Nuevo Departamento</h1>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h1>Nuevo Departamento</h1>
+                <div class="table-responsive">
+                    {# Renderizamos el Formulario generado de DepartamentoType #}
+                    {{ include('departamentos/_form.html.twig') }}
 
-    {{ include('departamentos/_form.html.twig') }}
-
-    <a href="{{ path('departamentos_index') }}">Volver</a>
+                    {# Boton de VOLVER #}
+                    <a class="btn btn-primary" href="{{ path('departamentos_index') }}">
+                        <i class="bi bi-arrow-return-left"></i>
+                        Volver
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

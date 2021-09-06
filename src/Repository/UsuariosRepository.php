@@ -23,6 +23,19 @@ class UsuariosRepository extends ServiceEntityRepository implements UserLoaderIn
         parent::__construct($registry, Usuarios::class);
     }
 
+    public function TodosUsuarios(){
+        return $this -> createQueryBuilder('u')
+            -> select('u.id')
+            -> addSelect('u.username')
+            -> addSelect('u.password')
+            -> addSelect('u.roles')
+            -> addSelect('u.fechaCreacion')
+            -> addSelect('u.creadoPor')
+            -> addSelect('u.estado')
+            -> orderBy('u.username', 'ASC')
+            -> getQuery();
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */

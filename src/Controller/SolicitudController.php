@@ -31,10 +31,6 @@ class SolicitudController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $nuevoSolicitante = new ArrayCollection();
-
-
-
         $solicitudConciliacion = new SolicitudConciliacion();
         $form = $this->createForm(SolicitudConciliacionType::class, $solicitudConciliacion);
         $form->handleRequest($request);

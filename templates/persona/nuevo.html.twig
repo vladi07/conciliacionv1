@@ -1,0 +1,37 @@
+{% extends'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}|Persona|Nuevo
+{% endblock %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h1>Nuevo Registro de Persona</h1>
+                <br>
+                <h3 class="font-weight-bold"> Ingrese los datos del Solicitante </h3>
+                {#
+                <!-- Insertamos en la vista los mensajes de alerta -->
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                #}
+
+                {{ include('persona/_formulario.html.twig') }}
+
+                <a class="btn btn-primary" href="{{ path('persona_index') }}">
+                    <i class="bi bi-arrow-return-left"></i>
+                    Volver
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {#
+    {{ form(formulario) }}
+    #}
+
+{% endblock %}

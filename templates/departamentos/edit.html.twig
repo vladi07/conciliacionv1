@@ -1,15 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }}|Edit Departamentos
+    {{ parent() }}|Departamento|Edit
 {% endblock %}
 
 {% block body %}
-    <h1>Editar Departamento</h1>
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="font-weight-bold">Editar Departamento</h3>
 
-    {{ include('departamentos/_form.html.twig', {'button_label': 'Guardar'}) }}
+                {{ include('departamentos/_form.html.twig', {'button_label': 'Guardar'}) }}
 
-    <a href="{{ path('departamentos_index') }}">Volver</a>
+                <a class="btn btn-primary" href="{{ path('departamentos_index') }}">
+                    <i class="bi bi-arrow-return-left"></i>
+                    Volver
+                </a>
 
-    {{ include('departamentos/_delete_form.html.twig') }}
+                <a class="btn">
+                    {{ include('departamentos/_delete_form.html.twig') }}
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -37,17 +37,11 @@
         <!-- Bootstrap Reboot-->
         <link rel="stylesheet" href="{{ asset('dist/css/bootstrap-reboot.min.css') }}">
 
-        {#
-        <!--Importamos desde su CDN Bootstrap -->
-        <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css') }}">
-        <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous')}}">
-        #}
-
         {% block stylesheets %}
         {% endblock %}
-
     </head>
-    <body class="hold-transition sidebar-mini layout-fixed" >
+
+    <body class="hold-transition sidebar-mini layout-fixed">
 
         <div class="wrapper">
             <!-- Preloader -->
@@ -62,7 +56,7 @@
                 <ul class="navbar-nav">
                     <!--Expandir panel de naegacion-->
                     <li class="nav-item">
-                        <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <a class="nav-link" data-widget="pushmenu" href="" role="button">
                             <i class="fas fa-bars"></i>
                         </a>
                     </li>
@@ -141,35 +135,51 @@
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Perfil
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Perfil
                             </a>
                             <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Configuración
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Configuración
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Cerrar Sesión
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Cerrar Sesión
                             </a>
                         </div>
                     </li>
                 </ul>
             </nav>
+
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-light-primary elevation-4">
                 <!-- Logo del sistema -->
                 <a href="" class="brand-link">
-                    <img src="{{ asset('dist/img/justicia-ver-cfondo.jpg') }}" alt="justicia-ver-cfondo" class="brand-image img-circle elevation-5" style="opacity: 2">
-                    <span class="brand-text font-weight-light">Sistema de Conciliación</span>
+                    <img src="{{ asset('dist/img/justicia-ver-cfondo.jpg') }}"
+                         alt="justicia-ver-cfondo"
+                         class="brand-image rounded-pill rounded float-left elevation-3">
+                    {# class="brand-image img-circle elevation-5" style="opacity: 2" #}
+                    <span class="brand-text font-weight-bold">Sistema de Conciliación</span>
+                    {# brand-text font-weight-light #}
                 </a>
                 <!-- Sidebar barra lateral-->
                 <div class="sidebar">
                     <!-- Sidebar Menu -->
                     <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview"
+                            role="menu" data-accordion="false">
+                            {# INICIO #}
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-item bi bi-house-fill"></i>
+                                    <p>INICIO</p>
+                                </a>
+                            </li>
                             <!--Modulo de Gestión de Casos-->
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-inbox"></i>
+                                <a href="" class="nav-link">
+                                    <i class="nav-item bi bi-inboxes-fill"></i>
                                     <p>
                                         CONCILIACIÓN DE CASOS
                                         <i class="fas fa-angle-left right"></i>
@@ -216,8 +226,8 @@
                             </li>
                             <!--Modulo de Gestion de Agenda de Conciliaciones-->
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon far fa-calendar-alt"></i>
+                                <a href="" class="nav-link">
+                                    <i class="nav-item far fa-calendar-alt"></i>
                                     <p>
                                         AGENDA DE CONCILIACIONES
                                         <i class="fas fa-angle-left right"></i>
@@ -246,8 +256,8 @@
                             </li>
                             <!--Modulo de Gestion de Reportes Estadisticos-->
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                <a href="" class="nav-link">
+                                    <i class="nav-item fas fa-chart-pie"></i>
                                     <p>
                                         REPORTES ESTADISTICOS
                                         <i class="right fas fa-angle-left"></i>
@@ -271,7 +281,7 @@
                             <!--Modulo de Gestion de Usuarios-->
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-users"></i>
+                                    <i class="nav-item fas fa-users"></i>
                                     <p>
                                         GESTIÓN DE USUARIOS
                                         <i class="fas fa-angle-left right"></i>
@@ -306,12 +316,13 @@
                             </li>
                             <!--Modulo de Gestion de Centros-->
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-home"></i>
+                                <a href="" class="nav-link">
+                                    <i class="nav-item fas fa-home"></i>
                                     <p>
                                         GESTIÓN DE CENTRO
                                         <i class="fas fa-angle-left right"></i>
                                     </p>
+
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
@@ -349,10 +360,19 @@
         </div>
         {# Contenido de la pagina #}
         <div class="content-wrapper">
+            {#
+            <br>
             <!-- Cabecera del contenido (Page header) -->
-            <div class="container-fluid">
-                <h1 class="m-0">Sistema de Conciliación - SCA</h1>
+            <div class="container d-flex justify-content-center">
+                <div class="badge badge-primary text-wrap text-center" style="width: 30rem;">
+                    <!--
+                    class="p-3 mb-2 bg-indigo text-white text-center"
+                    -->
+                    <h3 class="text-uppercase">Sistema de Conciliación - SCA</h3>
+                </div>
             </div>
+            <br>
+            #}
             {# Contenido PRincipal #}
             {% block body %}
             {% endblock %}

@@ -1,37 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Actividad index{% endblock %}
+{% block title %}
+    {{ parent() }}|Actividad
+{% endblock %}
 
 {% block body %}
-    <h1>Actividad index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Descripcion</th>
-                <th>Fecha</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for actividad in actividads %}
-            <tr>
-                <td>{{ actividad.id }}</td>
-                <td>{{ actividad.descripcion }}</td>
-                <td>{{ actividad.fecha ? actividad.fecha|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('actividad_show', {'id': actividad.id}) }}">show</a>
-                    <a href="{{ path('actividad_edit', {'id': actividad.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('actividad_new') }}">Create new</a>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="font-weight-bold">Actividades</h3>
+                <div class="d-flex bd-highlight mb-3">
+                    <div class="p-2 bd-highlight">
+                        <a class="btn btn-success" href="{{ path('actividad_new') }}">
+                            <i class="bi bi-plus-square"></i>
+                            Añadir Actividad
+                        </a>
+                    </div>
+                    <div class="ml-auto p-2 bd-highlight">
+                        <a class="btn btn-info">
+                            Cantidad Total de Actividades:
+                        </a>
+                    </div>
+                </div>
+                <div class="table">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="table-active">
+                                <th>Nro</th>
+                                <th>Descripción</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for actividad in actividads %}
+                            <tr>
+                                <td>{{ actividad.id }}</td>
+                                <td>{{ actividad.descripcion }}</td>
+                                <td>{{ actividad.fecha ? actividad.fecha|date('d-m-Y') : '' }}</td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ path('actividad_show', {'id': actividad.id}) }}">
+                                        <i class="bi bi-eye-fill"></i>
+                                        Ver
+                                    </a>
+                                    <a class="btn btn-info" href="{{ path('actividad_edit', {'id': actividad.id}) }}">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Editar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4">NO SE ENCONTRARON REGISTROS</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

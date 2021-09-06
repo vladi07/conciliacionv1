@@ -36,9 +36,12 @@ class CentroRepository extends ServiceEntityRepository
             ->addSelect('c.tipo')
             ->addSelect('c.telefono')
             ->addSelect('c.correo')
+
             ->addSelect('d.nombre AS nombreDepartamento')
             ->leftJoin('c.departamento','d')
+
             ->orderBy('c.id','DESC')
+
             ->getQuery();
     }
 

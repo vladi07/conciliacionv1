@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}|Usuario|Show
+{% endblock %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="font-weight-bold">Datos del Usuario</h3>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>ID</th>
+                            <td>{{ verUsuario.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nombre de Usuario</th>
+                            <td>{{ verUsuario.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>Contraseña</th>
+                            <td>{{ verUsuario.password }}</td>
+                        </tr>
+                        {#
+                        <tr>
+                            <th>
+                            </th>
+                            <td></td>
+                        </tr>
+                        #}
+                        <tr>
+                            <th>Creado Por</th>
+                            <td>{{ verUsuario.creadoPor }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fecha de Creación</th>
+                            <td>{{ verUsuario.fechaCreacion|date("d/m/Y") }}</td>
+                        </tr>
+                        <tr>
+                            <th>Activo</th>
+                            <td>{{ verUsuario.estado }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <button class="btn">
+                    <a class="btn btn-primary" href="{{ path('usuario_index') }}">
+                        <i class="bi bi-arrow-return-left"></i>
+                        Volver
+                    </a>
+                    <a class="btn btn-success" href="">
+                        <i class="bi bi-pencil-square"></i>
+                        Editar
+                    </a>
+                    {#
+                    {{ include('') }}
+                    #}
+
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -5,26 +5,26 @@
 {% endblock %}
 
 {% block body %}
-
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                <h1>Lista de Centros</h1>
-                {# Nro total de items #}
-                <div>
-                    <a class="btn btn-info">
-                        <h4>Cantidad Total de Centros: {{ pagination.getTotalItemCount }}</h4>
-                    </a>
+                {# Titulo de la Pantalla #}
+                <h3 class="font-weight-bold">Lista de Centros</h3>
+                <div class="d-flex bd-highlight mb-3">
+                    {# Boton Crear nuevo centro #}
+                    <div class="p-2 bd-highlight">
+                        <a class="btn btn-success" href="{{ path('centro_new') }}">
+                            <i class="bi bi-plus-square"></i>
+                            Añadir Centro
+                        </a>
+                    </div>
+                    {# Nro total de items#}
+                    <div class="ml-auto p-2 bd-highlight ">
+                        <a class="btn btn-info">
+                            Cantidad Total de Centros: {{ pagination.getTotalItemCount }}
+                        </a>
+                    </div>
                 </div>
-                <br>
-                {# Boton Crear nuevo centro #}
-                <div>
-                    <a class="btn btn-success" href="{{ path('centro_new') }}">
-                        <i class="bi bi-plus-square"></i>
-                        Añadir Centro
-                    </a>
-                </div>
-                <br>
                 {# Tabla de los centros registrados #}
                 <div class="table table-responsive">
                     <table class="table table-hover">
@@ -39,27 +39,8 @@
                             <th>Correo</th>
                             <th>Departamento</th>
                             <th>Acciones</th>
-                            {# sorting of properties based on query components
-                        <th>{{ knp_pagination_sortable(pagination, 'Nro', 'a.id') }}</th>
-                        <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'Nombre', 'a.title') }}
-                        </th>
-                        <th{% if pagination.isSorted(['a.date', 'a.time']) %} class="sorted"{% endif %}>
-                            {{ knp_pagination_sortable(pagination, 'Dirección', ['a.date', 'a.time']) }}
-                        </th>
-                        <th scope="col">{{ knp_pagination_sortable(pagination, 'Nombre', 'a.nombre') }}</th>
-
-                        <th>{{ knp_pagination_sortable(pagination, 'Dirección', 'a.direccion') }}</th>
-                        <th>{{ knp_pagination_sortable(pagination, 'Matricula', 'a.matricula') }}</th>
-                        <th>{{ knp_pagination_sortable(pagination, 'Tipo', 'a.tipo') }}</th>
-                        <th>{{ knp_pagination_sortable(pagination, 'Teléfono', 'a.telefono') }}</th>
-                        <th>{{ knp_pagination_sortable(pagination, 'Correo', 'a.correo') }}</th>
-                        <th>{{ knp_pagination_sortable(pagination, 'Departamento', 'a.departamento') }}</th>
-                        <th>{{ knp_pagination_sortable(pagination, 'Acciones', 'a.id') }}</th>
-                            #}
                         </tr>
                         </thead>
-
                         {# table body #}
                         {% for article in pagination %}
                             <tr {% if loop.index is odd %}class="color"{% endif %}>
@@ -72,14 +53,13 @@
                                 <td>{{ article.correo }}</td>
                                 <td>{{ article.nombreDepartamento }}</td>
                                 {# <td>{{ article.sala }}</td> #}
-
                                 <td>
-                                    <a class="btn btn-success" style="width: 6rem;" href="{{ path('centro_show', {'id': article.id}) }}">
+                                    <a class="btn btn-success" href="{{ path('centro_show', {'id': article.id}) }}">
                                         <i class="bi bi-eye-fill"></i>
                                         Ver
                                     </a>
                                     {# {%  if is_granted('ROLE_RERERE') %} #}
-                                    <a class="btn btn-info" style="width: 6rem;" href="{{ path('centro_edit', {'id': article.id}) }}">
+                                    <a class="btn btn-info" href="{{ path('centro_edit', {'id': article.id}) }}">
                                         <i class="bi bi-pencil-square"></i> {# bootstrap #}
                                         Editar
                                     </a>
@@ -101,6 +81,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 {% endblock %}

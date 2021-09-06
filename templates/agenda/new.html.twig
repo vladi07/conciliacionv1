@@ -1,11 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Agenda{% endblock %}
+{% block title %}
+    {{ parent() }}|Agenda|New
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Agenda</h1>
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="font-weight-bold">Nuevo Registro de Agenda</h3>
 
-    {{ include('agenda/_form.html.twig') }}
+                {{ include('agenda/_form.html.twig') }}
 
-    <a href="{{ path('agenda_index') }}">back to list</a>
+                <a class="btn btn-primary" href="{{ path('agenda_index') }}">
+                    <i class="bi bi-arrow-return-left"></i>
+                    Volver
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

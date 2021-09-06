@@ -1,30 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Actividad{% endblock %}
+{% block title %}
+    {{ parent() }}Actividad|Ver
+{% endblock %}
 
 {% block body %}
-    <h1>Actividad</h1>
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="font-weight-bold">Detalles de la Actividad</h3>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Nro</th>
+                            <td>{{ actividad.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Descripción</th>
+                            <td>{{ actividad.descripcion }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fecha</th>
+                            <td>{{ actividad.fecha ? actividad.fecha|date('d-m-Y') : '' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <button class="btn">
+                    <a class="btn btn-primary" href="{{ path('actividad_index') }}">
+                        <i class="bi bi-arrow-return-left"></i>
+                        Volver
+                    </a>
+                    <a class="btn btn-success" href="{{ path('actividad_edit', {'id': actividad.id}) }}">
+                        <i class="bi bi-pencil-square"></i>
+                        Editar
+                    </a>
+                    {{ include('actividad/_delete_form.html.twig') }}
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ actividad.id }}</td>
-            </tr>
-            <tr>
-                <th>Descripcion</th>
-                <td>{{ actividad.descripcion }}</td>
-            </tr>
-            <tr>
-                <th>Fecha</th>
-                <td>{{ actividad.fecha ? actividad.fecha|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('actividad_index') }}">back to list</a>
 
-    <a href="{{ path('actividad_edit', {'id': actividad.id}) }}">edit</a>
 
-    {{ include('actividad/_delete_form.html.twig') }}
+
+
+
+
 {% endblock %}

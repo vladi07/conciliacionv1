@@ -43,7 +43,7 @@ class DepartamentosController extends AbstractController
         }
 
         return $this->render('departamentos/new.html.twig', [
-            'departamento' => $departamento,
+            //'departamento' => $departamento,
             'form' => $form->createView(),
         ]);
     }

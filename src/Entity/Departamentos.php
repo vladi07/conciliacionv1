@@ -95,5 +95,4 @@ class Departamentos
     {
         $this->persona = $persona;
     }
-
 }

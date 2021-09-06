@@ -82,7 +82,9 @@ class CentroController extends AbstractController
             $entityManager->flush();
         }
         return $this->render('centro/show.html.twig', [
+            //Datos del Centro
             'centro' => $centro,
+            //Añadir y Ver SALAS
             'form' => $form->createView(),
         ]);
     }

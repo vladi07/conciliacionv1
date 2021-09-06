@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }}|Editar centro
+    {{ parent() }}|Centro|Edit
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="container d-flex justify-content-center">
         <div class="card" style="width: 50rem;">
             <div class="card-body">
-                <h1>Editar Centro</h1>
+                <h3 class="font-weight-bold">Editar Centro</h3>
                 {{ include('centro/_form.html.twig', {'button_label': 'Guardar'}) }}
 
                 <a class="btn btn-primary" href="{{ path('centro_index') }}">
@@ -18,9 +18,6 @@
 
                 {{ include('centro/_delete_form.html.twig') }}
             </div>
-
         </div>
-
     </div>
-
 {% endblock %}
