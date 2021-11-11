@@ -19,6 +19,20 @@ class SalasRepository extends ServiceEntityRepository
         parent::__construct($registry, Salas::class);
     }
 
+    public function TodoSalas(){
+        return $this -> createQueryBuilder('sal')
+            -> select('sal.id')
+            -> addSelect('sal.nombre')
+            -> addSelect('sal.fechaCreacion')
+
+            -> leftJoin('sal.centro','cen')
+            -> addSelect('cen.nombre AS nombreCentro')
+
+            -> orderBy('sal.nombre', 'ASC')
+
+            -> getQuery();
+    }
+
     // /**
     //  * @return Salas[] Returns an array of Salas objects
     //  */

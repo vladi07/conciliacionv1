@@ -1,0 +1,47 @@
+{% extends'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}|Sala|Ver
+{% endblock %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="font-weight-bold">Datos de la Sala</h3>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ verSala.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nombre</th>
+                            <td>{{ verSala.nombre }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fecha de Creación</th>
+                            <td>{{ verSala.fechaCreacion|date('d-m-Y')}}</td>
+                        </tr>
+                        <tr>
+                            <th>Centro de Conciliación</th>
+                            <td>{{ verSala.centro.nombre }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <button class="btn">
+                    <a class="btn btn-primary" href="{{ path('sala_index') }}">
+                        <i class="bi bi-arrow-return-left"></i>
+                        Volver
+                    </a>
+                    <a class="btn btn-success" href="{{ path('editar_sala',{'id':verSala.id}) }}">
+                        <i class="bi bi-pencil-square"></i>
+                        Editar
+                    </a>
+                    {{ include('salas/_eliminar.html.twig') }}
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

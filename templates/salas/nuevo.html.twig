@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}|Sala|New
+{% endblock %}
+
+{% block body %}
+    {# {{ parent() }} #}
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="font-weight-bold">Nueva Sala</h3>
+                {{ include('salas/_formulario.html.twig') }}
+                <a class="btn btn-primary" href="{{ path('sala_index') }}">
+                    <i class="bi bi-arrow-return-left"></i>
+                    Volver
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+<form method="post"
+      action="{{ path('eliminar_sala',{'id':verSala.id}) }}"
+      onsubmit="return confirm('¿Esta seguro de eliminar esta Sala?');">
+
+    <input type="hidden" name="_token" value="{{ csrf_token('delete'~verSala.id) }}">
+    <button class="btn btn-danger">
+        <i class="far fa-trash-alt"></i>
+        Eliminar
+    </button>
+</form>

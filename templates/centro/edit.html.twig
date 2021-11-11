@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="container d-flex justify-content-center">
-        <div class="card" style="width: 50rem;">
+        <div class="card" {# style="width: 50rem;" #}>
             <div class="card-body">
                 <h3 class="font-weight-bold">Editar Centro</h3>
                 {{ include('centro/_form.html.twig', {'button_label': 'Guardar'}) }}
@@ -16,7 +16,9 @@
                     Volver
                 </a>
 
-                {{ include('centro/_delete_form.html.twig') }}
+                <a class="btn">
+                    {{ include('centro/_delete_form.html.twig') }}
+                </a>
             </div>
         </div>
     </div>

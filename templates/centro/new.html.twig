@@ -1,17 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }}|Nuevo Centro
+    {{ parent() }}|Centro|New
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="card" style="width: 40rem;">
-
+    <div class="container d-flex justify-content-center">
+        <div class="card" {# style="width: 40rem;" #}>
             <div class="card-body">
-                <div class="card-title">
-                    <h1>Añadir Centro</h1>
-                </div>
+                <h3 class="font-weight-bold">Añadir Centro</h3>
                 <div class="table-responsive">
                     {{ include('centro/_form.html.twig') }}
                     <a class="btn btn-primary" href="{{ path('centro_index') }}">

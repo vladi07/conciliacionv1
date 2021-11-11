@@ -70,6 +70,7 @@ class CentroController extends AbstractController
      */
     public function show(Centro $centro,Request $request): Response
     {
+        //Creacion de la sala en el Centro
         $form=$this->createForm(SalasType::class,null);
         $form->handleRequest($request);
 
@@ -80,7 +81,8 @@ class CentroController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($sala);
             $entityManager->flush();
-        }
+        }//Creaion de Sala FIN
+        
         return $this->render('centro/show.html.twig', [
             //Datos del Centro
             'centro' => $centro,

@@ -36,11 +36,12 @@ class CentroType extends AbstractType
             ])
             ->add('telefono', NumberType::class, array(
                 'label' => 'Número de Teléfono',
-                'required' => true,
+                'required' => false,
                 'help' => 'Ingrese solo números enteros, sin ningun simbolo',
             ))
             ->add('correo', EmailType::class, [
-                'help' => 'Ej. mi.correo@mail.com'
+                'help' => 'Ej. mi.correo@mail.com',
+                'required' => false,
             ])
             ->add('departamento', EntityType::class,[
                 'placeholder' => 'Seleccione una opción',

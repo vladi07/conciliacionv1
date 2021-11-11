@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}|Sala|Edit
+{% endblock %}
+
+{% block body %}
+    <div class="container d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="font-weight-bold">Editar datos de la Sala</h3>
+
+                {{ include('salas/_formulario.html.twig', {'button_label':'Actualizar'}) }}
+
+                <a class="btn btn-primary" href="{{ path('sala_index') }}">
+                    <i class="bi bi-arrow-return-left"></i>
+                    Volver
+                </a>
+
+                <a class="btn">
+                    {{ include('salas/_eliminar.html.twig') }}
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

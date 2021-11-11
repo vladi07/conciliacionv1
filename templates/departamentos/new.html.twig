@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container d-flex justify-content-center">
         <div class="card">
             <div class="card-body">
-                <h1>Nuevo Departamento</h1>
+                <h1 class="font-weight-bold">Nuevo Departamento</h1>
                 <div class="table-responsive">
                     {# Renderizamos el Formulario generado de DepartamentoType #}
                     {{ include('departamentos/_form.html.twig') }}
